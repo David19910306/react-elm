@@ -9,20 +9,21 @@ class Item extends Component {
     return (
       <div className='item'>
         <div className='left'>
-          <img alt='展示图片' src='https://elm.cangdu.org/img/164ad0b6a3917599.jpg'/>
+          <img alt='展示图片' src={`https://elm.cangdu.org/img/${this.props.image_path}`}/>
         </div>
         <div className='center'>
           <div className='top'>
-            <Tag color='warning' style={{marginLeft: '.75rem'}}>品牌</Tag>&nbsp;<span>效果演示</span>
+            <Tag color='warning' style={{marginLeft: '.75rem'}}>品牌</Tag>&nbsp;<span className='title'>{this.props.name}</span>
           </div>
           <div className='centerShow'>
-            <StarsLight star={3}/>
+            <StarsLight star={this.props.rating}/>
             <span style={{lineHeight: '1.06rem'}}>
-              <label style={{lineHeight:'.78rem', fontWeight: '600', fontSize: '.65rem', color: '#ff9a0d',marginLeft:'.25rem'}}>2.0</label>
+              <label style={{lineHeight:'.78rem', fontWeight: '600', fontSize: '.65rem', color: '#ff9a0d',marginLeft:'.15rem'}}>{this.props.rating}</label>
+              <label style={{fontSize: '.4rem', color: '#666', transform: 'scale(.8)', marginLeft: '.13rem'}}>{`月售${this.props.recent_order_num}单`}</label>
             </span>
           </div>
           <div className='bottom'>
-            <span>￥20元起送 / 配送费约￥5</span>
+            <span>{`￥${this.props.recent_order_num}元起送`} / {`配送费约￥${this.props.float_delivery_fee}`}</span>
           </div>
         </div>
         <div className='right'>
@@ -30,7 +31,7 @@ class Item extends Component {
           <section className='section1'>
             <Tag color='primary'>蜂鸟专送</Tag>&nbsp;<Tag color='primary' fill='outline'>准时达</Tag>
           </section>
-          <section className='section2'>123.5公里 / <span>13小时11分钟</span></section>
+          <section className='section2'>{`${1.45}公里`} / <span>{this.props.order_lead_time}</span></section>
         </div>
       </div>
     );

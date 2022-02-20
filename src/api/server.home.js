@@ -7,3 +7,11 @@ export function getNavigationList(params) {
     params
   })
 }
+
+export function getRestaurantList(params) {
+  return request({
+    url: 'https://elm.cangdu.org/shopping/restaurants',
+    method: 'GET',
+    params
+  })
+}

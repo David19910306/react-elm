@@ -62,7 +62,7 @@ export class StarsLight extends Component {
   state={starNum: [false, false, false, false, false]}//设置默认的状态
   //计算传过来的值
   componentDidMount(){
-    this.getStar(Math.floor(this.props.star)); //将传过来的类似7.3数字进行四舍五入再除2，得到的是类似2,3.5,6这种值
+    this.getStar(this.props.star); //将传过来的类似7.3数字进行四舍五入再除2，得到的是类似2,3.5,6这种值
   }
   getStar = (count) => {
     let newStar = this.state.starNum.map((item)=>{ //当num=3.5时遍历后newStar数组变成
