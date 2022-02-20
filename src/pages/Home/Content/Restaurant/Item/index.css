@@ -1,21 +1,52 @@
 .item {
   display: flex;
   padding: 0.7rem 0.4rem;
+  border-bottom: 0.025rem solid #f1f1f1;
+}
+.item .left {
+  width: 2.7rem;
 }
 .item .left img {
-  width: 2.7rem;
-  height: 2.7rem;
+  width: 100%;
 }
 .item .center {
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 .item .center .top {
   color: #333;
   font: 0.65rem PingFangSC-Regular;
   font-weight: 700;
+  margin-bottom: 0.2rem;
 }
-.item .center .center {
-  display: inline-block;
+.item .center .centerShow {
+  display: flex;
+}
+.item .center .bottom span {
+  font-size: 0.5rem;
+  transform: scale(0.9);
+  color: #666;
+  margin-left: 0.65rem;
+}
+.item .right {
+  display: flex;
+  flex-direction: column;
+  color: #999;
+  width: 6rem;
+}
+.item .right p {
+  margin: 0 auto;
+}
+.item .right section {
+  margin: 0 auto;
+  font-size: 0.52rem;
+  transform: scale(0.9);
+}
+.item .right .section1 {
+  padding: 0.35rem 0;
+}
+.item .right .section2 span {
+  color: #3190e8;
 }
 /*# sourceMappingURL=index.css.map */

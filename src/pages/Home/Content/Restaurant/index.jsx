@@ -9,6 +9,17 @@ class Restaurant extends Component {
       <div className='restaurant'>
         <Header/>
         <Item/>
+        <Item/>
+        <Item/>
+        <Item/>
+        <Item/>
+        <Item/>
+        <Item/>
+        <Item/>
+        <Item/>
+        <Item/>
+        <Item/>
+        <Item/>
       </div>
     );
   }

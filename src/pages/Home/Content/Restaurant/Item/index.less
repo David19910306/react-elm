@@ -1,22 +1,55 @@
 .item{
   display: flex;
   padding: .7rem .4rem;
+  border-bottom: 0.025rem solid #f1f1f1;
   .left{
+    width: 2.7rem;
     img{
-      width: 2.7rem;
-      height: 2.7rem;
+      width: 100%;
     }
   }
   .center{
     display: flex;
     flex-direction: column;
+    flex: 1;
     .top{
       color: #333;
       font: 0.65rem PingFangSC-Regular;
       font-weight: 700;
+      margin-bottom: .2rem;
     }
-    .center{
-      display: inline-block;
+    .centerShow{
+      display: flex;
+    }
+    .bottom{
+      span{
+        font-size: .5rem;
+        transform: scale(.9);
+        color: #666;
+        margin-left: .65rem;
+      }
+    }
+  }
+  .right{
+    display: flex;
+    flex-direction: column;
+    color: #999;
+    width: 6rem;
+    p{
+      margin: 0 auto;
+    }
+    section{
+      margin: 0 auto;
+      font-size: .52rem;
+      transform: scale(.9);
+    }
+    .section1{
+      padding: .35rem 0;
+    }
+    .section2{
+      span{
+        color: #3190e8;
+      }
     }
   }
 }

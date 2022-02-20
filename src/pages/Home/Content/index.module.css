@@ -4,4 +4,5 @@
     flex-direction: column;
     -webkit-tap-highlight-color: transparent;
     -webkit-font-smoothing: antialiased;
+    overflow: auto;
 }

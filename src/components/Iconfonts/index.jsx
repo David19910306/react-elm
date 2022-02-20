@@ -81,7 +81,6 @@ export class StarsLight extends Component {
           this.state.starNum.map((item, index) => item? <i key={index} className='iconfont icon-pingjiaxingxing' style={{fontSize: '.4rem', color: '#ff9a0d'}}></i>
             : <i key={index} className='iconfont icon-pingjiaxingxing' style={{fontSize: '.4rem', color: '#333'}}></i>)
         }
-        <label style={{lineHeight:'.78rem', fontWeight: '600', fontSize: '.65rem', color: '#ff9a0d',marginLeft:'.45rem'}}>2.0</label>&nbsp;&nbsp;月售106单
       </span>
     )
   }
