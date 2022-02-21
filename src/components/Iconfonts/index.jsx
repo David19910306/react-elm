@@ -34,8 +34,10 @@ export class Mine extends Component {
 
 export class HeaderSearch extends Component {
   render() {
+    const {value} = this.props;
     console.log(this.props)
-    return this.props.value ?  <span style={{fontSize: '21px', color: '#fff', fontWeight: 'border',marginLeft: '.5rem'}}>{this.props.value}</span>:
+    return value ? <span style={{fontSize: '.8rem', color: '#fff', fontWeight: 'border', marginLeft: typeof value === 'string' ? '.5rem': '0rem'}}>
+        {this.props.value}</span>:
     (
       <i className='iconfont icon-sousuo' style={{fontSize: '21px', color: '#fff', fontWeight: 'border'}}></i>
     );
@@ -89,11 +91,19 @@ export class StarsLight extends Component {
   }
 }
 
-export class ToLeft extends Component {
+export class ToRight extends Component {
   render() {
     return (
       <i className='iconfont icon-fangxiang-you' style={{fontSize: '1.2rem', fontWeight: 'border', color: '#999',
         marginLeft: '0.75rem'}}></i>
+    );
+  }
+}
+
+export class ToLeft extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-fangxiang-zuo' style={{fontSize: '1.2rem', fontWeight: 'border', color: '#fff'}}></i>
     );
   }
 }

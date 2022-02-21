@@ -7,7 +7,7 @@ class Header extends Component {
       <div className={headerStyle.header}>
         <div className={headerStyle.left}>{this.props.render()}</div>
         <div className={headerStyle.center}>{this.props.location}</div>
-        <div className={headerStyle.right}>登录|注册</div>
+        <div className={headerStyle.right}>{this.props.tips}</div>
       </div>
     );
   }

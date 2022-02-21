@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Header from "@/components/Header";
 import {HeaderSearch} from "@/components/Iconfonts";
-import {ToLeft} from "@/components/Iconfonts";
+import {ToRight} from "@/components/Iconfonts";
 import {getCitiesHot, getCitiesGroup, getLocationCity} from "@/api/server.city";
 import cities from './index.module.css'
 
@@ -24,7 +24,7 @@ class Cities extends Component {
     const {location, hot, groups} = this.state
     return (
       <div style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
-        <Header render={() => <HeaderSearch value={'ele.me'}/>} location={''}/>
+        <Header render={() => <HeaderSearch value={'ele.me'}/>} location={''} tips={'登录|注册'}/>
         <div style={{overflow:'auto', flex:'1'}}>
           <div className={cities.location}>
             <div className={cities.cityTip}>
@@ -33,7 +33,7 @@ class Cities extends Component {
             </div>
             <div className={cities.guessCity}>
               <span>{location.name}</span>
-              <ToLeft/>
+              <ToRight/>
             </div>
           </div>
 
