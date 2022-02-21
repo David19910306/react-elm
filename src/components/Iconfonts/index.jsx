@@ -34,7 +34,9 @@ export class Mine extends Component {
 
 export class HeaderSearch extends Component {
   render() {
-    return (
+    console.log(this.props)
+    return this.props.value ?  <span style={{fontSize: '21px', color: '#fff', fontWeight: 'border',marginLeft: '.5rem'}}>{this.props.value}</span>:
+    (
       <i className='iconfont icon-sousuo' style={{fontSize: '21px', color: '#fff', fontWeight: 'border'}}></i>
     );
   }
@@ -67,7 +69,8 @@ export class StarsLight extends Component {
   getStar = (count) => {
     let newStar = this.state.starNum.map((item)=>{ //当num=3.5时遍历后newStar数组变成
       --count;
-      return count>=1?true:((count>0)?true:false); //两次三目运算
+      return count >=1? true: (count >= 0? true: false)
+      // return count>=1?true:((count>0)?true:false); //两次三目运算
     })
     this.setState({
       starNum:newStar  //设置state为遍历后的新数组
@@ -83,6 +86,15 @@ export class StarsLight extends Component {
         }
       </span>
     )
+  }
+}
+
+export class ToLeft extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-fangxiang-you' style={{fontSize: '1.2rem', fontWeight: 'border', color: '#999',
+        marginLeft: '0.75rem'}}></i>
+    );
   }
 }
 
