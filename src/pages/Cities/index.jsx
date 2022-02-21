@@ -23,9 +23,9 @@ class Cities extends Component {
   render() {
     const {location, hot, groups} = this.state
     return (
-      <div style={{position: 'relative'}}>
+      <div style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
         <Header render={() => <HeaderSearch value={'ele.me'}/>} location={''}/>
-        <div style={{overflow:'auto'}}>
+        <div style={{overflow:'auto', flex:'1'}}>
           <div className={cities.location}>
             <div className={cities.cityTip}>
               <span style={{fontWeight: '400', fontSize: '.55rem', color: '#999', fontFamily: 'Misrosoft Yahei'}}>当前定位城市：</span>
