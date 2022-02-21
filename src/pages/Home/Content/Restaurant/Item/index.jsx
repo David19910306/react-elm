@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StarsLight} from '../../../../../components/Iconfonts'
+import { StarsLight} from '@/components/Iconfonts'
 import { Tag} from 'antd-mobile'
 
 import './index.css'
@@ -16,7 +16,7 @@ class Item extends Component {
             <Tag color='warning' style={{marginLeft: '.75rem'}}>品牌</Tag>&nbsp;<span className='title'>{this.props.name}</span>
           </div>
           <div className='centerShow'>
-            <StarsLight star={this.props.rating}/>
+            <StarsLight star={this.props.rating} />
             <span style={{lineHeight: '1.06rem'}}>
               <label style={{lineHeight:'.78rem', fontWeight: '600', fontSize: '.65rem', color: '#ff9a0d',marginLeft:'.15rem'}}>{this.props.rating}</label>
               <label style={{fontSize: '.4rem', color: '#666', transform: 'scale(.8)', marginLeft: '.13rem'}}>{`月售${this.props.recent_order_num}单`}</label>

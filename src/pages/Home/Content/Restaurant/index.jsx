@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Header from "./Header";
 import Item from "./Item";
 import './index.css'
-import {getRestaurantList} from "../../../../api/server.home";
+import {getRestaurantList} from "@/api/server.home";
 
 class Restaurant extends Component {
   state={restaurants: []}

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import msitNavStyle from './index.module.css'
 import {Swiper} from "antd-mobile";
-import {getNavigationList} from "../../../../api/server.home";
+import {getNavigationList} from "@/api/server.home";
 import {Link} from "react-router-dom";
 
 const {Item} = Swiper
