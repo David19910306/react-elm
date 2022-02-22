@@ -35,7 +35,7 @@ export class Mine extends Component {
 export class HeaderSearch extends Component {
   render() {
     const {value} = this.props;
-    console.log(this.props)
+    // console.log(this.props)
     return value ? <span style={{fontSize: '.8rem', color: '#fff', fontWeight: 'border', marginLeft: typeof value === 'string' ? '.5rem': '0rem'}}>
         {this.props.value}</span>:
     (

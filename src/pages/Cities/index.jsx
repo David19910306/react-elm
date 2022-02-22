@@ -4,6 +4,7 @@ import {HeaderSearch} from "@/components/Iconfonts";
 import {ToRight} from "@/components/Iconfonts";
 import {getCitiesHot, getCitiesGroup, getLocationCity} from "@/api/server.city";
 import cities from './index.module.css'
+import {Link} from "react-router-dom";
 
 class Cities extends Component {
   state = {location: {}, hot: [], groups: {}}
@@ -31,10 +32,12 @@ class Cities extends Component {
               <span style={{fontWeight: '400', fontSize: '.55rem', color: '#999', fontFamily: 'Misrosoft Yahei'}}>当前定位城市：</span>
               <span>定位不准时，请在城市列表中选择</span>
             </div>
-            <div className={cities.guessCity}>
-              <span>{location.name}</span>
-              <ToRight/>
-            </div>
+            <Link to={`/city/${location.name}/${location.id}`}>
+              <div className={cities.guessCity}>
+                <span>{location.name}</span>
+                <ToRight/>
+              </div>
+            </Link>
           </div>
 
           <div className={cities.CityContainer}>

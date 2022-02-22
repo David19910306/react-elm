@@ -23,3 +23,11 @@ export function getCitiesGroup(params) {
     params
   })
 }
+
+export function getPosition(params) {
+  return request({
+    url: 'https://elm.cangdu.org/v1/pois',
+    method: 'GET',
+    params
+  })
+}
