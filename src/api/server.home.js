@@ -15,3 +15,18 @@ export function getRestaurantList(params) {
     params
   })
 }
+
+export function getAccuratePosition(pos){
+  return request({
+    url: `https://elm.cangdu.org/v2/pois/${pos}`,
+    method: 'GET'
+  })
+}
+
+export function getRestaurantsByKeyWord(params) {
+  return request({
+    url: 'https://elm.cangdu.org/v4/restaurants',
+    method: 'GET',
+    params
+  })
+}

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Stories} from '../../../../../components/Iconfonts'
-import './index.css'
+import './index.scss'
 
 class Header extends Component {
   render() {

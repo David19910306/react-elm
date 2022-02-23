@@ -1,0 +1,68 @@
+.search-container{
+    height: 100%;
+    overflow: auto;
+}
+.searchField{
+    height: 1.56rem;
+    background-color: #fff;
+    padding: .5rem;
+    display: flex;
+    .inputField{
+        flex: 4;
+        border: 0.025rem solid #e4e4e4;
+        font-size: .65rem;
+        color: #333;
+        border-radius: 0.125rem;
+        background-color: #f2f2f2;
+        font-weight: 700;
+        padding: 0 0.25rem;
+    }
+    .inputSubmit{
+        flex: 1;
+        border: 0.025rem solid #3190e8;
+        margin-left: 0.2rem;
+        font-size: .65rem;
+        color: #fff;
+        border-radius: 0.125rem;
+        background-color: #3190e8;
+        font-weight: 700;
+        padding: 0 0.25rem;
+    }
+}
+.title_restaurant{
+    font-size: .6rem;
+    line-height: 2rem;
+    text-indent: 0.5rem;
+    font-weight: 700;
+    color: #666;
+}
+.list-container{
+    background-color: #fff;
+    .list-li{
+        display: flex;
+        justify-content: center;
+        padding: 0.5rem;
+        border-bottom: 0.025rem solid #e4e4e4;
+        .item-left{
+            margin-right: .25rem;
+            .restaurant_img{
+                width: 1.7rem;
+                height: 1.7rem;
+            }
+        }
+        .item-right{
+            font-size: .55rem;
+            flex: 1;
+            .item-right-text{
+                padding-bottom: .25rem;
+                border-bottom: .025rem solid #e4e4e4;
+                p{
+                    line-height:.9rem;
+                }
+            }
+            .item-right-detail{
+                margin-top: .25rem;
+            }
+        }
+    }
+}

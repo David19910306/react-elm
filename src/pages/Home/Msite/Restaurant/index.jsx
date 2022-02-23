@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import Header from "./Header";
 import Item from "./Item";
-import './index.css'
 import {getRestaurantList} from "@/api/server.home";
+import './index.scss'
 
 class Restaurant extends Component {
   state={restaurants: []}
@@ -11,7 +11,7 @@ class Restaurant extends Component {
   async componentDidMount() {
     try{
       const result = await getRestaurantList({latitude:22.54369,longitude:114.038418})
-      console.log(result)
+      // console.log(result)
       result.status === 200 && this.setState({restaurants: result.data})
     }catch (e){
       console.log(e.message)

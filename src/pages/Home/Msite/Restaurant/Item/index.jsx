@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { StarsLight} from '@/components/Iconfonts'
 import { Tag} from 'antd-mobile'
 
-import './index.css'
+import './index.scss'
 
 class Item extends Component {
   render() {
