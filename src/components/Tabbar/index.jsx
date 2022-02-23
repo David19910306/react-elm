@@ -15,9 +15,6 @@ class TabBarComponent extends Component {
       {key: 'mine', title: '我的', icon: <Mine/>}
     ]
   }
-  componentDidMount(){
-
-  }
 
   //切换面板的回调
   tabChange = value => {

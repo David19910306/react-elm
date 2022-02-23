@@ -1,0 +1,35 @@
+.header{
+    background-color: #3190e8;
+    display: flex;
+    height: 2.2rem;
+}
+
+.left{
+    text-align: center;
+    line-height: 2.2rem;
+    width: 2.2rem;
+}
+
+.center{
+    flex: 1;
+    color: #fff;
+    font-size: .8rem;
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 2.2rem;
+    padding: 0 20px;
+    font-weight: 700;
+}
+
+.right{
+    /*width: 4.5rem;*/
+    font-size: .65rem;
+    font-weight: 400;
+    line-height: 2.2rem;
+    color: #fff;
+    padding: 0 5px;
+    text-align: center;
+}
