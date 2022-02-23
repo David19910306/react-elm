@@ -11,7 +11,7 @@ class Restaurant extends Component {
   async componentDidMount() {
     try{
       const result = await getRestaurantList({latitude:22.54369,longitude:114.038418})
-      console.log(result)
+      // console.log(result)
       result.status === 200 && this.setState({restaurants: result.data})
     }catch (e){
       console.log(e.message)

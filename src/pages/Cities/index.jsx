@@ -44,7 +44,7 @@ class Cities extends Component {
             <h4 className={cities.hoyCityTitle}>热门城市</h4>
             <ul className={cities.cityList}>
               {
-                hot.map(city => <li key={city.id}>{city.name}</li>)
+                hot.map(city => <Link key={city.id} to={`/city/${city.name}/${city.id}`}><li>{city.name}</li></Link>)
               }
             </ul>
           </div>
@@ -55,7 +55,7 @@ class Cities extends Component {
                 <h4 className={cities.hoyCityTitle}>{index === 0? `${group} (按字母排序)`: group}</h4>
                 <ul className={cities.cityList}>
                   {
-                    groups[group].map(city => <li key={city.id} style={{color: '#666'}}>{city.name}</li>)
+                    groups[group].map(city => <Link key={city.id} to={`/city/${city.name}/${city.id}`}><li style={{color: '#666'}}>{city.name}</li></Link>)
                   }
                 </ul>
               </div>
