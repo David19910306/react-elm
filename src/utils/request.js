@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Cookies from 'js-cookie'
 
 const request = axios.create({
   withCredentials: true,
@@ -8,7 +9,11 @@ const request = axios.create({
 request.interceptors.request.use(config => {
 
   //判断登录时是否有拿到token
-  // if (getToken()) {...}
+  if (Cookies.get('cap')){
+    config.headers = {
+      cookie: `cap=${Cookies.get('cap')}`
+    }
+  }
   return config
 }, error => {
   console.log(error.message)

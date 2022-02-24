@@ -1,0 +1,28 @@
+.login-container{
+  height: 100%;
+  .form-container{
+    margin-top: .5rem;
+    .identificateCode{
+      display: flex;
+      .tips{
+        margin-left: .2rem;
+        h6:last-child{
+          color: #3b95e9;
+        }
+      }
+    }
+    span{
+      font-size: .12rem;
+      color: #ff0000;
+      display: inline-block;
+      margin: .5rem 0 0 .8rem;
+    }
+    .adm-form-footer{
+      padding: 0;
+    }
+  }
+  .reset{
+    margin: 1rem 0 0 13rem;
+    color: #3b95e9;
+  }
+}

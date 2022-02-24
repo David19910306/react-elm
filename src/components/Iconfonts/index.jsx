@@ -93,8 +93,9 @@ export class StarsLight extends Component {
 
 export class ToRight extends Component {
   render() {
+    const {color} = this.props
     return (
-      <i className='iconfont icon-fangxiang-you' style={{fontSize: '1.2rem', fontWeight: 'border', color: '#999',
+      <i className='iconfont icon-fangxiang-you' style={{fontSize: '1rem', fontWeight: 'border', color,
         marginLeft: '0.75rem'}}></i>
     );
   }
@@ -108,3 +109,50 @@ export class ToLeft extends Component {
   }
 }
 
+export class Iphone extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-phone-iphone' style={{width: '.5rem', height: '.75rem', display: 'inline-block', verticalAlign: 'middle', lineHeight:'.75rem'}}></i>
+    );
+  }
+}
+
+export class MyList extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-dingdan1' style={{width: '.7rem', height: '.7rem', lineHeight: '1.87rem', fontSize: '.9rem', color: '#999'}}></i>
+    );
+  }
+}
+
+export class MyStore extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-shangcheng' style={{width: '.7rem', height: '.7rem', lineHeight: '1.87rem', fontSize: '.9rem', color: '#fc7b53'}}></i>
+    );
+  }
+}
+
+export class MyVip extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-wodehuiyuan0101' style={{width: '.7rem', height: '.7rem', lineHeight: '1.87rem', fontSize: '.9rem', color: '#ffc636'}}></i>
+    );
+  }
+}
+
+export class MyService extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-fuwuzhongxin1' style={{width: '.7rem', height: '.7rem', lineHeight: '1.87rem', fontSize: '.9rem', color: '#4aa5f0'}}></i>
+    );
+  }
+}
+
+export class MyElmApp extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-elemo' style={{width: '.7rem', height: '.7rem', lineHeight: '1.87rem', fontSize: '.9rem'}}></i>
+    );
+  }
+}
