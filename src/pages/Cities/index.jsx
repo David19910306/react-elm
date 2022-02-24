@@ -35,7 +35,7 @@ class Cities extends Component {
             <Link to={`/city/${location.name}/${location.id}`}>
               <div className={cities.guessCity}>
                 <span>{location.name}</span>
-                <ToRight/>
+                <ToRight color='#999'/>
               </div>
             </Link>
           </div>

@@ -1,4 +1,4 @@
-const {override, addWebpackAlias, addLessLoader} = require("customize-cra");
+const {override, addWebpackAlias, addLessLoader, overrideDevServer} = require("customize-cra");
 const path = require("path");
 
 module.exports = override(
