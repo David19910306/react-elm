@@ -53,7 +53,6 @@ class Login extends Component {
       <div className='login-container'>
         <Header render={() => <HeaderSearch value={<ToLeft/>} />} location='密码登录' />
         <section className='form-container'>
-          {/*受控表单*/}
           <Form
             onFinish={this.loginHandler}
             footer={
@@ -99,7 +98,6 @@ class Login extends Component {
   }
 }
 
-// export default Login;
 const mapStateToProps = (state) => state
 const mapDispatchToProps = {
   [ACTIONS_TYPE.RECORD_USERID]: recordUserInfo
