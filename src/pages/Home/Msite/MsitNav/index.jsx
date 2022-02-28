@@ -3,6 +3,7 @@ import msitNavStyle from './index.module.css'
 import {Swiper} from "antd-mobile";
 import {getNavigationList} from "@/api/server.home";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 
 const {Item} = Swiper
 class MsitNav extends Component {
@@ -24,7 +25,7 @@ class MsitNav extends Component {
     return (
       <div className={msitNavStyle.msitNav}>
         <Swiper loop>
-          <Item><SwiperItem mistList={mistList.slice(0, (mistList.length / 2))}/></Item>
+          <Item><SwiperItem mistList={mistList.slice(0, (mistList.length / 2))} geohash={this.props.home}/></Item>
           <Item><SwiperItem mistList={mistList.slice(mistList.length / 2, mistList.length)}/></Item>
         </Swiper>
       </div>
@@ -34,14 +35,14 @@ class MsitNav extends Component {
 
 class SwiperItem extends Component{
   render() {
-    const {mistList} = this.props
-    // console.log(mistList.length)
+    const {mistList, geohash} = this.props
+    console.log(this.props)
     return (
       <div className={msitNavStyle.swiperItem}>
         {
           mistList.map(item => (
             <div className={msitNavStyle.swiperItemChild} key={item.id}>
-              <Link to={`https://fuss10.elemecdn.com/${item.link}`} style={{textDecoration: 'none'}}>
+              <Link to={`/food?geohash=${geohash}&title=${item.title}&restaurant_category_id=239`} style={{textDecoration: 'none'}}>
                 <div style={{flex: '1.5'}}><img alt='展示图片' src={`https://fuss10.elemecdn.com/${item.image_url}`}/></div>
                 <div style={{flex: '1', textAlign: 'center', color: '#666'}}>{item.title}</div>
               </Link>
@@ -53,4 +54,6 @@ class SwiperItem extends Component{
   }
 }
 
-export default MsitNav;
+const mapStateToProps = state => state
+const mapDispatchToProps = {}
+export default connect(mapStateToProps, mapDispatchToProps)(MsitNav);

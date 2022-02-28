@@ -32,7 +32,7 @@ class Login extends Component {
       Toast.show({content:'验证码输入错误，请重新输入'})
     }else {
       // 存储用户的id到redux
-      this.props.recordUserId(result.data)
+      this.props.recordUserInfo(result.data)
       this.props.history.push('/home/mine')
     }
   }
@@ -51,9 +51,8 @@ class Login extends Component {
   render() {
     return (
       <div className='login-container'>
-        <Header render={() => <HeaderSearch value={<ToLeft/>} />} location='密码登录' />
+        <Header render={() => <HeaderSearch value={<ToLeft/>} />} location='密码登录' props={this.props} />
         <section className='form-container'>
-          {/*受控表单*/}
           <Form
             onFinish={this.loginHandler}
             footer={
@@ -99,9 +98,8 @@ class Login extends Component {
   }
 }
 
-// export default Login;
 const mapStateToProps = (state) => state
 const mapDispatchToProps = {
-  [ACTIONS_TYPE.RECORD_USERID]: recordUserInfo
+  [ACTIONS_TYPE.RECORD_USERINFO]: recordUserInfo
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
