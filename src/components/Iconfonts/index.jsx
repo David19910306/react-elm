@@ -93,10 +93,10 @@ export class StarsLight extends Component {
 
 export class ToRight extends Component {
   render() {
-    const {color} = this.props
+    const {color, fontSize, marginLeft} = this.props
     return (
-      <i className='iconfont icon-fangxiang-you' style={{fontSize: '1rem', fontWeight: 'border', color,
-        marginLeft: '0.75rem'}}></i>
+      <i className='iconfont icon-fangxiang-you' style={{fontSize:`${fontSize}? ${fontSize} : '1rem'`, fontWeight: 'border', color,
+        marginLeft: `${marginLeft}? ${marginLeft} :'0.75rem'`}}></i>
     );
   }
 }
@@ -153,6 +153,54 @@ export class MyElmApp extends Component {
   render() {
     return (
       <i className='iconfont icon-elemo' style={{width: '.7rem', height: '.7rem', lineHeight: '1.87rem', fontSize: '.9rem'}}></i>
+    );
+  }
+}
+
+export class Sort extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-paixu' style={{color: this.props.color, fontSize: this.props.fontSize}}></i>
+    );
+  }
+}
+
+export class Distance extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-position-o' style={{color: this.props.color, fontSize: this.props.fontSize}}></i>
+    );
+  }
+}
+
+export class Hit extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-redu' style={{color: this.props.color, fontSize: this.props.fontSize}}></i>
+    );
+  }
+}
+
+export class Time extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-shijian-xianxing' style={{color: this.props.color, fontSize: this.props.fontSize}}></i>
+    );
+  }
+}
+
+export class Price extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-jiage' style={{color: this.props.color, fontSize: this.props.fontSize}}></i>
+    );
+  }
+}
+
+export class Stars extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-pingfen1' style={{color: this.props.color, fontSize: this.props.fontSize}}></i>
     );
   }
 }
