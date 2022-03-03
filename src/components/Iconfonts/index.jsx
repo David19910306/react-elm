@@ -93,10 +93,10 @@ export class StarsLight extends Component {
 
 export class ToRight extends Component {
   render() {
-    const {color} = this.props
+    const {color, fontSize, marginLeft} = this.props
     return (
-      <i className='iconfont icon-fangxiang-you' style={{fontSize: '1rem', fontWeight: 'border', color,
-        marginLeft: '0.75rem'}}></i>
+      <i className='iconfont icon-fangxiang-you' style={{fontSize:`${fontSize}? ${fontSize} : '1rem'`, fontWeight: 'border', color,
+        marginLeft: `${marginLeft}? ${marginLeft} :'0.75rem'`}}></i>
     );
   }
 }
