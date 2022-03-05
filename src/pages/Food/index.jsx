@@ -4,7 +4,7 @@ import {Dropdown} from "antd-mobile";
 import Header from "@/components/Header";
 import {HeaderSearch, ToRight} from "@/components/Iconfonts";
 import {restaurantCategory} from "@/api/server.foods";
-import {Distance, Hit, Price, Sort, Stars, Time} from "../../components/Iconfonts";
+import {Distance, Hit, Price, Sort, Stars, Time} from "@/components/Iconfonts";
 import './index.scss'
 
 class Food extends Component {
@@ -47,7 +47,7 @@ class Food extends Component {
                       <li key={restaurant.ids} onClick={() => {this.clickHandler(restaurant)}} className={currentActiveId === restaurant.id? 'active': ''}>
                         <img src={restaurant.image_url?
                           `https://fuss10.elemecdn.com/${restaurant.image_url.slice(0, 1)}/${restaurant.image_url.slice(1,3)}/${restaurant.image_url.slice(3)}.${restaurant.image_url.includes('png')? 'png': 'jpeg'}`
-                          :'https://elm.cangdu.org/img/default.jpg'} alt='图标'/>
+                          :'https://elm.cangdu.org/img/default.jpg'} alt={restaurant.name}/>
                         <span className='category_name'>{restaurant.name}</span>
                         <span className='category_count'>{restaurant.count}</span>
                         <ToRight color={'#bbb'} marginLeft={0} fontSize={'.34rem'}/>
@@ -93,10 +93,10 @@ class Food extends Component {
             </section>
           </Dropdown.Item>
           <Dropdown.Item key='more' title='刷选'>
-            <div style={{padding: '12'}}>
+            <section className='more'>
               配送方式
               <br/>
-            </div>
+            </section>
           </Dropdown.Item>
         </Dropdown>
       </div>

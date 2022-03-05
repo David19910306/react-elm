@@ -1,10 +1,12 @@
-const {override, addWebpackAlias, addLessLoader, overrideDevServer} = require("customize-cra");
+const {override, addWebpackAlias, addLessLoader} = require("customize-cra");
 const path = require("path");
 
 module.exports = override(
   addLessLoader({
-    lessOptions: {
-      localIdentName: '[local]--[hash:base64:5]'
+    lessOptions:{
+      paths: [path.resolve(__dirname, "src/")],
+      javascriptEnabled: true,
+      sourceMap: true
     }
   }),
   addWebpackAlias({
