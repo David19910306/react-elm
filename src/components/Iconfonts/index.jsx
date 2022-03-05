@@ -204,3 +204,51 @@ export class Stars extends Component {
     );
   }
 }
+
+export class Hook extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-duigou' style={{color: '#3190e8', fontSize: '.6rem', fontWeight: 'border', display: this.props.display}}></i>
+    );
+  }
+}
+
+export class StarStore extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-pin2' style={{color: '#3190e8', fontSize: '.6rem', marginRight:'.2rem', fontWeight: 'border', display: this.props.display}}></i>
+    );
+  }
+}
+
+export class Ensure extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-servicebaoshuicang' style={{color: '#3190e8', marginRight:'.2rem', fontSize: '.6rem', fontWeight: 'border', display: this.props.display}}></i>
+    );
+  }
+}
+
+export class Check extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-tianmaohuopiaotongxing' style={{color: '#3190e8', marginRight:'.2rem', fontSize: '.6rem', fontWeight: 'border', display: this.props.display}}></i>
+    );
+  }
+}
+
+export class OnlinePay extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-zhifuzhongxin' style={{color: '#3190e8', marginRight:'.2rem', fontSize: '.6rem', fontWeight: 'border', display: this.props.display}}></i>
+    );
+  }
+}
+
+export class OnTime extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-zhunshida' style={{color: '#3190e8', fontSize: '.6rem', marginRight:'.2rem', fontWeight: 'border', display: this.props.display}}></i>
+    );
+  }
+}

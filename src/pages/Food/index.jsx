@@ -1,14 +1,18 @@
 import React, {Component} from 'react';
 import qs from "qs";
-import {Dropdown} from "antd-mobile";
+import {Button, Dropdown} from "antd-mobile";
 import Header from "@/components/Header";
 import {HeaderSearch, ToRight} from "@/components/Iconfonts";
 import {restaurantCategory} from "@/api/server.foods";
-import {Distance, Hit, Price, Sort, Stars, Time} from "@/components/Iconfonts";
+import MyButton from "@/components/Button";
+import {Distance, Hit, Price, Sort, Stars, Time, Hook,Check, Ensure, OnlinePay, OnTime, StarStore} from "@/components/Iconfonts";
 import './index.scss'
 
 class Food extends Component {
-  state= {activeKey: '', title: '', geohash: {}, restaurant_category_id: '', restaurantList: [], restaurant: {}, currentActiveId: 0}
+  state= {
+    activeKey: '', title: '', geohash: {}, restaurant_category_id: '', restaurantList: [], restaurant: {}, currentActiveId: 0, textContent: [], currentClick: [],
+    checkedList: []
+  }
   // 下拉框事件
   onChangeHandler = activeKey => {
     this.setState({activeKey})
@@ -29,8 +33,25 @@ class Food extends Component {
     this.setState({restaurant, currentActiveId: restaurant.id})
   }
 
+  //点击按钮clickButtonHandler,配送方式选择
+  clickButtonHandler = event => {
+    const {textContent} = event.target
+    this.setState({textContent: [textContent]})
+  }
+
+  //onClickHandle
+  onClickHandle = current => {
+    this.setState(state => ({currentClick: [current, ...state.currentClick]}))
+    !this.state.checkedList.find(checked => checked === current) && this.setState(state => ({checkedList: [current, ...state.checkedList]}))
+  }
+
+  //清空按钮
+  clear = () => {
+    this.setState({checkedList: [], textContent: '', currentClick: []})
+  }
+
   render() {
-    const {title, restaurantList, restaurant, currentActiveId} = this.state
+    const {title, restaurantList, restaurant, currentActiveId, textContent, currentClick, checkedList} = this.state
     return (
       <div className='food-container'>
         <Header
@@ -93,9 +114,30 @@ class Food extends Component {
             </section>
           </Dropdown.Item>
           <Dropdown.Item key='more' title='刷选'>
-            <section className='more'>
-              配送方式
-              <br/>
+            <section className='filter'>
+              <section className='more'>
+                <p>配送方式</p>
+                <section className='method'>
+                  <Button className={textContent[0] === '不限'? 'activeButton': ''} onClick={this.clickButtonHandler}><Hook display={textContent[0] === '不限'? '': 'none'}/>不限</Button>
+                  <Button className={textContent[0] === '蜂鸟专送'? 'activeButton': ''} onClick={this.clickButtonHandler}><Hook display={textContent[0] === '蜂鸟专送'? '': 'none'}/>蜂鸟专送</Button>
+                </section>
+              </section>
+              <section className='store'>
+                <p>商家属性 (可以多选)</p>
+                <section className='props'>
+                  <MyButton currentText='品牌商家' currentClick={currentClick} render={() => <StarStore display={currentClick.length !== 0 && currentClick.find(current => current === '品牌商家')? 'none': ''} />} onClickHandle={this.onClickHandle}/>
+                  <MyButton currentText='外卖保' currentClick={currentClick} render={() => <Ensure display={currentClick.find(current => current === '外卖保')? 'none': ''} />} onClickHandle={this.onClickHandle}/>
+                  <MyButton currentText='开发票' currentClick={currentClick} render={() => <Check display={currentClick.find(current => current === '开发票')? 'none': ''} />} onClickHandle={this.onClickHandle}/>
+                  <MyButton currentText='在线支付' currentClick={currentClick} render={() => <OnlinePay display={currentClick.find(current => current === '在线支付')? 'none': ''} />} onClickHandle={this.onClickHandle}/>
+                  <MyButton currentText='准时达' currentClick={currentClick} render={() => <OnTime display={currentClick.find(current => current === '准时达')? 'none': ''} />} onClickHandle={this.onClickHandle}/>
+                </section>
+              </section>
+            </section>
+            <section className='bottomButton'>
+              <Button style={{'--background-color': '#fff', padding: '.3rem 2.75rem'}} onClick={this.clear}>清空</Button>
+              <Button style={{'--background-color': '#76C97C', '--text-color': '#fff', padding: '.3rem 2.75rem'}}>
+                {`确定${checkedList.length !== 0 || textContent.length !== 0? `(${checkedList.length + textContent.length})`: ''}`}
+              </Button>
             </section>
           </Dropdown.Item>
         </Dropdown>

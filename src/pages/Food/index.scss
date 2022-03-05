@@ -85,6 +85,46 @@
   }
 }
 
-.more{
-  width: 100%;
+.filter{
+  color: #333;
+  .more{
+    width: 100%;
+    padding: .5rem 1rem;
+    .method {
+      margin-top: .3rem;
+      button:first-child{
+        padding: .2rem 1.2rem;
+        font-size: .6rem;
+        margin-right: .3rem;
+        color: #333;
+        border: 1px dashed #999;
+      }
+      button:last-child{
+        padding: .2rem 1.2rem;
+        font-size: .6rem;
+        color: #333;
+        border: 1px dashed #999;
+      }
+      .activeButton{
+        color: #3b95e9 !important;
+        border: 1px dashed #3b95e9 !important;
+      }
+    }
+  }
+  .store{
+    width: 100%;
+    padding-top: .1rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    .props {
+      margin-top: .3rem;
+    }
+  }
+}
+
+.bottomButton{
+  display: flex;
+  justify-content:space-around;
+  background-color: #e4e4e4;
+  padding: 0.3rem;
 }
