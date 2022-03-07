@@ -7,3 +7,11 @@ export function restaurantCategory(params){
     params
   })
 }
+
+export function specfoods(params){
+  return request({
+    url: '/api/shopping/restaurants',
+    method: 'GET',
+    params
+  })
+}

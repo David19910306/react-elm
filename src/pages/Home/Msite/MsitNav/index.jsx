@@ -26,7 +26,7 @@ class MsitNav extends Component {
       <div className={msitNavStyle.msitNav}>
         <Swiper loop>
           <Item><SwiperItem mistList={mistList.slice(0, (mistList.length / 2))} geohash={this.props.home}/></Item>
-          <Item><SwiperItem mistList={mistList.slice(mistList.length / 2, mistList.length)}/></Item>
+          <Item><SwiperItem mistList={mistList.slice(mistList.length / 2, mistList.length)} geohash={this.props.home}/></Item>
         </Swiper>
       </div>
     );
@@ -36,7 +36,7 @@ class MsitNav extends Component {
 class SwiperItem extends Component{
   render() {
     const {mistList, geohash} = this.props
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <div className={msitNavStyle.swiperItem}>
         {

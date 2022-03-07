@@ -1,18 +1,23 @@
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import qs from "qs";
 import {Button, Dropdown} from "antd-mobile";
 import Header from "@/components/Header";
-import {HeaderSearch, ToRight} from "@/components/Iconfonts";
-import {restaurantCategory} from "@/api/server.foods";
+import {ToLeft, ToRight} from "@/components/Iconfonts";
+import {restaurantCategory, specfoods} from "@/api/server.foods";
 import MyButton from "@/components/Button";
+import ListItem from "@/components/ListItem";
 import {Distance, Hit, Price, Sort, Stars, Time, Hook,Check, Ensure, OnlinePay, OnTime, StarStore} from "@/components/Iconfonts";
 import './index.scss'
 
 class Food extends Component {
   state= {
     activeKey: '', title: '', geohash: {}, restaurant_category_id: '', restaurantList: [], restaurant: {}, currentActiveId: 0, textContent: [], currentClick: [],
-    checkedList: []
+    checkedList: [],
+    foodsList: [],
+    sub_categoriesId: '',
+    clickInnerText: ''
   }
+  dropdownRef = createRef()
   // 下拉框事件
   onChangeHandler = activeKey => {
     this.setState({activeKey})
@@ -24,7 +29,8 @@ class Food extends Component {
     this.setState({geohash, title, restaurant_category_id})
     // 向后台请求并加载数据
     const result = await restaurantCategory({geohash})
-    result.status === 200 && this.setState({restaurantList: result.data})
+    const response = await specfoods({latitude: geohash.split(',')[0], longitude: geohash.split(',')[1]})
+    result.status === 200 && this.setState({restaurantList: result.data, foodsList: response.data})
   }
 
   // 点击列表获取当前的子菜单
@@ -48,17 +54,49 @@ class Food extends Component {
   //清空按钮
   clear = () => {
     this.setState({checkedList: [], textContent: '', currentClick: []})
+    this.dropdownRef.current.close()
+  }
+
+  //选中的种类
+  categorySelected = async (category) => {
+    const {geohash} = this.state
+    const result = await specfoods({
+      latitude: geohash.split(',')[0],
+      longitude: geohash.split(',')[1],
+      restaurant_category_ids:[category.id]
+    })
+    result.status === 200 && this.setState({foodsList: result.data, sub_categoriesId: category.id, title: category.name})
+    this.dropdownRef.current.close()
+  }
+
+  //排序按钮
+  clickSorter = (id) => {
+    const {geohash} = this.state
+    return async event => {
+      const {innerText} = event.target
+      const result = await specfoods({
+        latitude: geohash.split(',')[0],
+        longitude: geohash.split(',')[1],
+        restaurant_category_ids:[id],
+        order_by: innerText === '距离最近'? 5: innerText === '销量最高'? 6: innerText === '起送价最低'? 1:
+          innerText === '配送速度最快'? 2: innerText === '评分最高'? 3: 4
+      })
+      result.status === 200 && this.setState({clickInnerText: innerText, foodsList: result.data})
+      this.dropdownRef.current.close()
+    }
   }
 
   render() {
-    const {title, restaurantList, restaurant, currentActiveId, textContent, currentClick, checkedList} = this.state
+    const {title, restaurantList, restaurant, currentActiveId, textContent,
+      currentClick, checkedList, foodsList, sub_categoriesId,clickInnerText} = this.state
     return (
       <div className='food-container'>
         <Header
-          render={() => <HeaderSearch/>}
+          props={this.props}
+          render={() => <ToLeft/>}
           location={title}
         />
-        <Dropdown onChange={this.onChangeHandler}>
+        <Dropdown onChange={this.onChangeHandler} ref={this.dropdownRef}>
           <Dropdown.Item key='type' title={this.state.activeKey === 'type'? '分类': title}>
             <div className='category'>
               <section className='category_left'>
@@ -82,7 +120,10 @@ class Food extends Component {
                   {
                     restaurant.sub_categories === undefined ? '':
                     restaurant.sub_categories.map(category => category.count !== 0 && (
-                      <li key={category.id}> <span>{category.name}</span> <span>{category.count}</span></li>
+                      <li key={category.id} onClick={() => {this.categorySelected(category)}}>
+                        <span className={sub_categoriesId === category.id ? 'active':''}>{category.name}</span>
+                        <span className={sub_categoriesId === category.id ? 'active':''}>{category.count}</span>
+                      </li>
                     ))
                   }
                 </ul>
@@ -92,23 +133,29 @@ class Food extends Component {
           <Dropdown.Item key='sorter' title='排序'>
             <section className='sorter'>
               <ul>
-                <li>
+                <li onClick={this.clickSorter(sub_categoriesId)}>
                   <Sort color='#3190e8' fontSize='.7rem'/><p><span>智能排序</span></p>
+                  <>{clickInnerText === '智能排序'? <Hook/>: ''}</>
                 </li>
-                <li>
+                <li onClick={this.clickSorter(sub_categoriesId)}>
                   <Distance color='#3190ee' fontSize='.7rem'/><p><span>距离最近</span></p>
+                  {clickInnerText === '距离最近'? <Hook/>: ''}
                 </li>
-                <li>
+                <li onClick={this.clickSorter(sub_categoriesId)}>
                   <Hit color='#ff6000' fontSize='.7rem'/><p><span>销量最高</span></p>
+                  {clickInnerText === '销量最高'? <Hook/>: ''}
                 </li>
-                <li>
+                <li onClick={this.clickSorter(sub_categoriesId)}>
                   <Price color='#ff9a0d' fontSize='.7rem'/><p><span>起送价最低</span></p>
+                  {clickInnerText === '起送价最低'? <Hook/>: ''}
                 </li>
-                <li>
+                <li onClick={this.clickSorter(sub_categoriesId)}>
                   <Time color='#8aeda2' fontSize='.7rem'/><p><span>速度最快</span></p>
+                  {clickInnerText === '速度最快'? <Hook/>: ''}
                 </li>
-                <li>
+                <li onClick={this.clickSorter(sub_categoriesId)}>
                   <Stars color='#ff9a00' fontSize='.7rem'/><p><span>评分最高</span></p>
+                  {clickInnerText === '评分最高'? <Hook/>: ''}
                 </li>
               </ul>
             </section>
@@ -141,6 +188,11 @@ class Food extends Component {
             </section>
           </Dropdown.Item>
         </Dropdown>
+        <section className='list-container'>
+          {
+            foodsList.map(restaurant => <ListItem key={restaurant.id} {...restaurant}></ListItem>)
+          }
+        </section>
       </div>
     );
   }

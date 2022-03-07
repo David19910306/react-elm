@@ -1,13 +1,20 @@
 import React, {Component} from 'react';
+import {withRouter} from "react-router-dom";
 import { StarsLight} from '@/components/Iconfonts'
-import { Tag} from 'antd-mobile'
+import { Tag } from 'antd-mobile'
 
 import './index.scss'
 
-class Item extends Component {
+class ListItem extends Component {
+  // 跳转到商店界面
+  jumpToShop = () => {
+    console.log('jumpToShop', this.props)
+    this.props.history.push('/shop')
+  }
+
   render() {
     return (
-      <div className='item'>
+      <div className='item' onClick={this.jumpToShop}>
         <div className='left'>
           <img alt='展示图片' src={`https://elm.cangdu.org/img/${this.props.image_path}`}/>
         </div>
@@ -38,4 +45,4 @@ class Item extends Component {
   }
 }
 
-export default Item;
+export default withRouter(ListItem);

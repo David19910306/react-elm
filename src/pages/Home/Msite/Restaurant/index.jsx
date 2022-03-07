@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Header from "./Header";
-import Item from "./Item";
+import Item from "@/components/ListItem";
 import {getRestaurantList} from "@/api/server.home";
 import './index.scss'
 

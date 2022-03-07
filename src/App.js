@@ -1,7 +1,7 @@
 import './App.css';
 import Cities from "./pages/Cities";
 import {Redirect, Route, Switch} from "react-router-dom";
-import {City, Home, Login, Food} from '@/router'
+import {City, Home, Login, Food, Shop} from '@/router'
 
 function App() {
   return (
@@ -12,6 +12,7 @@ function App() {
         <Route path='/home' component={Home}/>
         <Route path='/food' component={Food}/>
         <Route path='/login' component={Login}/>
+        <Route path='/shop' component={Shop}/>
         <Redirect to='/index'/>
       </Switch>
     </div>
