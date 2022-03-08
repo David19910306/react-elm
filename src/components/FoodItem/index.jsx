@@ -1,13 +1,46 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux";
 import {Button, Tag} from "antd-mobile";
+import {AddBtn, MinusBtn} from "../Iconfonts";
+import ACTION_TYPE from "@/redux/constant";
+import {foodItem} from "@/redux/actions/foodItem";
 import './index.scss'
-import {AddBtn} from "../Iconfonts";
 
 class FoodItem extends Component {
+
+  state = {
+    orderMenus: [] // 选中的菜品
+  }
 
   componentDidMount(){
     this.props.getItemNode(this.sectionNode)
   }
+
+  // 添加菜单
+  addMenu = food => {
+    console.log(food, this.props)
+    let count = 0
+    const menu = this.state.orderMenus.find(menu => menu.id === food.item_id)
+    menu? this.setState({orderMenus: [{count: ++menu.count, ...menu}, ...this.state.orderMenus.filter(menu => menu.id !== food.item_id)]}, () => {
+      this.props.foodItemState(...this.state.orderMenus)
+    }): this.setState({orderMenus:[{name:food.name, price: food.specfoods[0].price, id: food.item_id, count: ++count}, ...this.state.orderMenus]}, () => {
+      this.props.foodItemState(...this.state.orderMenus)
+    })
+
+    // if (menu){
+    //   this.setState({orderMenus: [{count: ++menu.count, ...menu}, ...this.state.orderMenus.filter(menu => menu.id !== food.item_id)]}, () => {
+    //     console.log(this.state.orderMenus)
+    //   })
+    // }else{
+    //   // this.setState({orderMenus:[{name:food.name, price: food.specfoods[0].price, id: food.item_id, count: ++count}, ...this.state.orderMenus]})
+    //   this.setState(state=> {
+    //     return {orderMenus:[{name:food.name, price: food.specfoods[0].price, id: food.item_id, count: ++count}, ...state.orderMenus]}
+    //   }, () => {
+    //     console.log(this.state.orderMenus)
+    //   })
+    // }
+  }
+
   render() {
     // console.log(this.props)
     const {foodItem} = this.props
@@ -47,7 +80,7 @@ class FoodItem extends Component {
                   <Button size='mini' color='primary'>选规格</Button>
                 </section>): (
                   <section className='cart-module'>
-                    <AddBtn/>
+                    <MinusBtn display='none'/><span style={{display: 'none'}}>1</span><AddBtn addMenu={() => {this.addMenu(food)}}/>
                   </section>
                 )
               }
@@ -59,4 +92,8 @@ class FoodItem extends Component {
   }
 }
 
-export default FoodItem;
+const mapStateToProps = state => state
+const mapDispatchToProps = {
+  [ACTION_TYPE.FOOD_ITEM_STATE]: foodItem
+}
+export default connect(mapStateToProps, mapDispatchToProps)(FoodItem);

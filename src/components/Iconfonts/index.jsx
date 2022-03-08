@@ -264,7 +264,15 @@ export class Carts extends Component {
 export class AddBtn extends Component {
   render() {
     return (
-      <i className='iconfont icon-jia' style={{color: '#3190e8', fontSize: '.85rem'}}></i>
+      <i className='iconfont icon-jia' onClick={this.props.addMenu} style={{color: '#3190e8', fontSize: '.85rem'}}></i>
+    );
+  }
+}
+
+export class MinusBtn extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-jianshao' style={{color: '#3190e8', fontSize: '.9rem', display: this.props.display}}></i>
     );
   }
 }

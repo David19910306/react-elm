@@ -5,10 +5,12 @@ import storage from 'redux-persist/es/storage'
 import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2";
 import loginRecuder from "./reducers/login";
 import homeReducer from "./reducers/home";
+import foodItemReducer from './reducers/foodItem'
 
 const allReducers = combineReducers({
   userInfo: loginRecuder,
   home: homeReducer,
+  foodItemState: foodItemReducer
 })
 
 const persistConfig = {

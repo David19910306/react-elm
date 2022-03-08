@@ -5,12 +5,14 @@ import {ToRight, ToLeft, Carts} from "../../components/Iconfonts";
 import FoodItem from "../../components/FoodItem";
 import {foodList, shoppingRestaurant} from "../../api/server.shop";
 import './index.scss'
+import {connect} from "react-redux";
 
 class Shop extends Component {
   state = {
     restaurant: {},  // 餐馆详情
     foods: [], //食品列表
-    scrollHeight: 0 // 点击右侧面板时需要移动的距离
+    scrollHeight: 0, // 点击右侧面板时需要移动的距离
+    allSelectMenu: []
   }
 
   //回退按钮
@@ -20,13 +22,13 @@ class Shop extends Component {
 
   // 切换面板回调
   setActiveTab = (key) =>{
-    const selectTab = this.state.foods.find(food => food.id.toString() === key)
-    console.log(selectTab)
+    // const selectTab = this.state.foods.find(food => food.id.toString() === key)
+    // console.log(selectTab)
     // this.sideBarNode.scrollTop = this.state.scrollHeight
   }
 
   getItemNode = node => {
-    console.log(node.offsetHeight, node)
+    // console.log(node.offsetHeight, node)
     this.setState({scrollHeight: node.offsetHeight})
   }
 
@@ -36,6 +38,7 @@ class Shop extends Component {
     const response = await shoppingRestaurant(id)
     const result = await foodList({restaurant_id: id})
     this.setState({restaurant: response.data, foods: result.data})
+    console.log(this.props)
   }
 
   render() {
@@ -102,4 +105,6 @@ class Shop extends Component {
   }
 }
 
-export default Shop;
+const mapStateToProps = state => state
+const mapDispatchToProps = {}
+export default connect(mapStateToProps, mapDispatchToProps)(Shop);
