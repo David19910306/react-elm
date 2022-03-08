@@ -252,3 +252,19 @@ export class OnTime extends Component {
     );
   }
 }
+
+export class Carts extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-gouwuche' style={{width: '100%', height: '100%', color: '#fff', fontSize: '1.5rem', lineHeight: '1.2rem'}}></i>
+    );
+  }
+}
+
+export class AddBtn extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-jia' style={{color: '#3190e8', fontSize: '.85rem'}}></i>
+    );
+  }
+}

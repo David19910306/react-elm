@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {withRouter} from "react-router-dom";
+import {connect} from "react-redux";
 import { StarsLight} from '@/components/Iconfonts'
 import { Tag } from 'antd-mobile'
 
@@ -8,8 +9,8 @@ import './index.scss'
 class ListItem extends Component {
   // 跳转到商店界面
   jumpToShop = () => {
-    console.log('jumpToShop', this.props)
-    this.props.history.push('/shop')
+    // console.log('jumpToShop', this.props)
+    this.props.history.push(`/shop?geohash=${this.props.home}&id=${this.props.id}`)
   }
 
   render() {
@@ -45,4 +46,6 @@ class ListItem extends Component {
   }
 }
 
-export default withRouter(ListItem);
+const mapStateToProps = state => state
+const mapDispatchToProps = {}
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ListItem));

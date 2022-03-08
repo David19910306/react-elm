@@ -2,8 +2,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 
 const request = axios.create({
-  withCredentials: true,
-  timeout: 10000
+  withCredentials: true
 })
 
 request.interceptors.request.use(config => {

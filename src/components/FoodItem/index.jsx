@@ -1,162 +1,59 @@
 import React, {Component} from 'react';
-import {Button} from "antd-mobile";
+import {Button, Tag} from "antd-mobile";
 import './index.scss'
+import {AddBtn} from "../Iconfonts";
 
 class FoodItem extends Component {
+
+  componentDidMount(){
+    this.props.getItemNode(this.sectionNode)
+  }
   render() {
+    // console.log(this.props)
+    const {foodItem} = this.props
     return (
-      <section className='item-list'>
-        <header><strong>辣条</strong><span>辣辣辣</span></header>
-        <section className='list-content'>
-          <section className='menu_detail_link'>
-            <section className="menu_food_img"><img src="https://elm.cangdu.org/img/16f8979ea6e62796.jpg" /></section>
-            <section className="menu_food_description">
-              <h3 className='food_description_head'>
-                <strong className='description_foodname'>卫龙辣条</strong>
-                <ul className='attributes_ul'>
-                  <li className="attribute_new" style={{color: "rgb(94, 196, 82)", borderColor: "rgb(94, 196, 82)"}}>
-                    <p style={{color: "#fff"}}>新品</p>
-                  </li>
-                </ul>
-              </h3>
-              <p className='food_description_content'>好吃的辣条</p>
-              <p className="food_description_sale_rating">
-                <span>月售587份</span> <span data-v-c8684834="">好评率73%</span>
-              </p>
-              <p className="food_activity">
-                <span style={{color: "rgb(241, 136, 79)", borderColor: "rgb(240, 115, 115)"}}>买一送一</span>
-              </p>
+      <section className='item-list' ref={node => this.sectionNode = node}>
+        <header><strong>{foodItem.name}</strong><span>{foodItem.description}</span></header>
+        {
+          foodItem.foods.map(food => <section key={food.item_id} className='list-content'>
+            <section className='menu_detail_link'>
+              <section className="menu_food_img"><img src={`https://elm.cangdu.org/img/${food.image_path}`} /></section>
+              <section className="menu_food_description">
+                <h3 className='food_description_head'>
+                  <strong className='description_foodname'>{food.name}</strong>
+                  <ul className='attributes_ul' style={{display: `${food.attributes.find(f => f && f.icon_name==='新')? '': 'none'}`}}>
+                    <li className="attribute_new" style={{color: "rgb(94, 196, 82)", borderColor: "rgb(94, 196, 82)"}}>
+                      <p style={{color: "#fff"}}>新品</p>
+                    </li>
+                  </ul>
+                  <Tag color='danger' fill='outline' round style={{display: `${food.attributes.find(f => f && f.icon_name==='招牌')? '': 'none'}`}}>招牌</Tag>
+                </h3>
+                <p className='food_description_content'>{food.description}</p>
+                <p className="food_description_sale_rating">
+                  <span>月售{food.month_sales}份</span> <span data-v-c8684834="">好评率{food.satisfy_rate}</span>
+                </p>
+                <p className="food_activity">
+                  <span style={{color: `#${food.activity && food.activity.icon_color}`, borderColor: `#${food.activity &&food.activity.image_text_color}`}}>{food.activity && food.activity.image_text}</span>
+                </p>
+              </section>
             </section>
-          </section>
-          <footer className='menu_detail_footer'>
-            <section className="food_price">
-              <span >¥</span> <span>20</span> <span >起</span>
-            </section>
-            <section className='cart-module'>
-              <Button size='mini' color='primary'>选规格</Button>
-            </section>
-          </footer>
-        </section>
-        <section className='list-content'>
-          <section className='menu_detail_link'>
-            <section className="menu_food_img"><img src="https://elm.cangdu.org/img/16f8979ea6e62796.jpg" /></section>
-            <section className="menu_food_description">
-              <h3 className='food_description_head'>
-                <strong className='description_foodname'>卫龙辣条</strong>
-                <ul className='attributes_ul'>
-                  <li className="attribute_new" style={{color: "rgb(94, 196, 82)", borderColor: "rgb(94, 196, 82)"}}>
-                    <p style={{color: "#fff"}}>新品</p>
-                  </li>
-                </ul>
-              </h3>
-              <p className='food_description_content'>好吃的辣条</p>
-              <p className="food_description_sale_rating">
-                <span>月售587份</span> <span data-v-c8684834="">好评率73%</span>
-              </p>
-              <p className="food_activity">
-                <span style={{color: "rgb(241, 136, 79)", borderColor: "rgb(240, 115, 115)"}}>买一送一</span>
-              </p>
-            </section>
-          </section>
-          <footer className='menu_detail_footer'>
-            <section className="food_price">
-              <span >¥</span> <span>20</span> <span >起</span>
-            </section>
-            <section className='cart-module'>
-              <Button size='mini' color='primary'>选规格</Button>
-            </section>
-          </footer>
-        </section>
-        <section className='list-content'>
-          <section className='menu_detail_link'>
-            <section className="menu_food_img"><img src="https://elm.cangdu.org/img/16f8979ea6e62796.jpg" /></section>
-            <section className="menu_food_description">
-              <h3 className='food_description_head'>
-                <strong className='description_foodname'>卫龙辣条</strong>
-                <ul className='attributes_ul'>
-                  <li className="attribute_new" style={{color: "rgb(94, 196, 82)", borderColor: "rgb(94, 196, 82)"}}>
-                    <p style={{color: "#fff"}}>新品</p>
-                  </li>
-                </ul>
-              </h3>
-              <p className='food_description_content'>好吃的辣条</p>
-              <p className="food_description_sale_rating">
-                <span>月售587份</span> <span data-v-c8684834="">好评率73%</span>
-              </p>
-              <p className="food_activity">
-                <span style={{color: "rgb(241, 136, 79)", borderColor: "rgb(240, 115, 115)"}}>买一送一</span>
-              </p>
-            </section>
-          </section>
-          <footer className='menu_detail_footer'>
-            <section className="food_price">
-              <span >¥</span> <span>20</span> <span >起</span>
-            </section>
-            <section className='cart-module'>
-              <Button size='mini' color='primary'>选规格</Button>
-            </section>
-          </footer>
-        </section>
-        <section className='list-content'>
-          <section className='menu_detail_link'>
-            <section className="menu_food_img"><img src="https://elm.cangdu.org/img/16f8979ea6e62796.jpg" /></section>
-            <section className="menu_food_description">
-              <h3 className='food_description_head'>
-                <strong className='description_foodname'>卫龙辣条</strong>
-                <ul className='attributes_ul'>
-                  <li className="attribute_new" style={{color: "rgb(94, 196, 82)", borderColor: "rgb(94, 196, 82)"}}>
-                    <p style={{color: "#fff"}}>新品</p>
-                  </li>
-                </ul>
-              </h3>
-              <p className='food_description_content'>好吃的辣条</p>
-              <p className="food_description_sale_rating">
-                <span>月售587份</span> <span data-v-c8684834="">好评率73%</span>
-              </p>
-              <p className="food_activity">
-                <span style={{color: "rgb(241, 136, 79)", borderColor: "rgb(240, 115, 115)"}}>买一送一</span>
-              </p>
-            </section>
-          </section>
-          <footer className='menu_detail_footer'>
-            <section className="food_price">
-              <span >¥</span> <span>20</span> <span >起</span>
-            </section>
-            <section className='cart-module'>
-              <Button size='mini' color='primary'>选规格</Button>
-            </section>
-          </footer>
-        </section>
-        <section className='list-content'>
-          <section className='menu_detail_link'>
-            <section className="menu_food_img"><img src="https://elm.cangdu.org/img/16f8979ea6e62796.jpg" /></section>
-            <section className="menu_food_description">
-              <h3 className='food_description_head'>
-                <strong className='description_foodname'>卫龙辣条</strong>
-                <ul className='attributes_ul'>
-                  <li className="attribute_new" style={{color: "rgb(94, 196, 82)", borderColor: "rgb(94, 196, 82)"}}>
-                    <p style={{color: "#fff"}}>新品</p>
-                  </li>
-                </ul>
-              </h3>
-              <p className='food_description_content'>好吃的辣条</p>
-              <p className="food_description_sale_rating">
-                <span>月售587份</span> <span data-v-c8684834="">好评率73%</span>
-              </p>
-              <p className="food_activity">
-                <span style={{color: "rgb(241, 136, 79)", borderColor: "rgb(240, 115, 115)"}}>买一送一</span>
-              </p>
-            </section>
-          </section>
-          <footer className='menu_detail_footer'>
-            <section className="food_price">
-              <span >¥</span> <span>20</span> <span >起</span>
-            </section>
-            <section className='cart-module'>
-              <Button size='mini' color='primary'>选规格</Button>
-            </section>
-          </footer>
-        </section>
+            <footer className='menu_detail_footer'>
+              <section className="food_price">
+                <span >¥</span> <span>{food.specfoods[0].price}</span> <span >起</span>
+              </section>
+              {
+                food.specifications.length > 0 ?
+                (<section className='cart-module'>
+                  <Button size='mini' color='primary'>选规格</Button>
+                </section>): (
+                  <section className='cart-module'>
+                    <AddBtn/>
+                  </section>
+                )
+              }
+            </footer>
+          </section>)
+        }
       </section>
     );
   }
