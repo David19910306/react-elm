@@ -5,13 +5,15 @@ import {AddBtn, MinusBtn} from "../Iconfonts";
 import ACTION_TYPE from "@/redux/constant";
 import {incrementFoodItem, decrementFoodItem} from "@/redux/actions/foodItem";
 import './index.scss'
+import MyDialog from "../Dialog";
+import {specfoods} from "../../api/server.foods";
 
 class FoodItem extends Component {
 
   state = {
     currentId: [],
     orderMenus: [], // 选中的菜品
-    currentSpanIndex: 0 //当前选中的span标签索引
+    currentSpecsId: '' //当前选中菜品规格的id
   }
 
   componentDidMount(){
@@ -20,7 +22,6 @@ class FoodItem extends Component {
 
   // 添加菜单
   addMenu = (food) => {
-    // console.log(food)
     let count = 0
     const menu = this.state.orderMenus.find(menu => menu.id === food.item_id)
     menu? this.setState({orderMenus: [{...menu,count: ++menu.count}, ...this.state.orderMenus.filter(menu => menu.id !== food.item_id)]}, () => {
@@ -29,18 +30,6 @@ class FoodItem extends Component {
       this.props.incrementFoodItem(...this.state.orderMenus)
     })
     this.setState(state => ({currentId: [food.item_id, ...state.currentId]}))
-    // if (menu){
-    //   this.setState({orderMenus: [{count: ++menu.count, ...menu}, ...this.state.orderMenus.filter(menu => menu.id !== food.item_id)]}, () => {
-    //     console.log(this.state.orderMenus)
-    //   })
-    // }else{
-    //   // this.setState({orderMenus:[{name:food.name, price: food.specfoods[0].price, id: food.item_id, count: ++count}, ...this.state.orderMenus]})
-    //   this.setState(state=> {
-    //     return {orderMenus:[{name:food.name, price: food.specfoods[0].price, id: food.item_id, count: ++count}, ...state.orderMenus]}
-    //   }, () => {
-    //     console.log(this.state.orderMenus)
-    //   })
-    // }
   }
 
   // 减少菜单
@@ -51,35 +40,35 @@ class FoodItem extends Component {
     })
   }
 
-  // 点击按钮弹出对话框
-  alertDialog = (specfoods) => {
-    console.log(this.state)
-    Dialog.confirm({
-      closeOnMaskClick: true,
-      title: specfoods[0].name,
-      content: (
-        specfoods.map(spec => <section key={spec.food_id} className='dialog-container'>
-          <h5>{spec.specs_name}</h5>
-          <section className='dialog-content'>
-            <span className='size'>
-              <span className='activeSpan'>{spec.specs_name}</span>
-            </span>
-          </section>
-          <span className='priceTag'>￥{spec.price}</span>
-        </section>)
-      )
-    })
-  }
-
-  clickSpan = value => {
-    return () => {
-      console.log(value)
-      this.setState({currentSpanIndex: value})
+  // 获取到的所选规格商品的Id
+  foodsId = (food) => {
+    return (foodsId) => {
+      const selectFood = food.find(f => f._id === foodsId)
+      console.log(selectFood)
+      let count = 0
+      const menu = this.state.orderMenus.find(menu => menu.id === selectFood._id)
+      menu? this.setState(state => {
+        return {orderMenus: [{...menu, count: ++menu.count}, ...state.orderMenus.filter(menu => menu.id !== selectFood._id)]}
+      }):
+      this.setState(state => {
+        return {orderMenus: [{name: selectFood.name, specs:selectFood.specs_name, price: selectFood.price, id: selectFood._id, count: ++count}, ...state.orderMenus]}
+      })
+      this.setState(state => ({currentSpecsId: selectFood._id}))
     }
   }
 
+  // 点击按钮弹出对话框
+  alertDialog = async (specfoods) => {
+    return await Dialog.confirm({
+      closeOnMaskClick: true,
+      title: specfoods[0].name,
+      content: <MyDialog specfoods={specfoods} foodsId={this.foodsId(specfoods)} />,
+      confirmText: '加入购物车'
+    })
+  }
+
   render() {
-    const {currentId, orderMenus} = this.state
+    const {currentId, orderMenus, currentSpecsId} = this.state
     const {foodItem} = this.props
     return(
       <section className='item-list' ref={node => this.sectionNode = node}>
@@ -109,12 +98,15 @@ class FoodItem extends Component {
             </section>
             <footer className='menu_detail_footer'>
               <section className="food_price">
-                <span >¥</span> <span>{food.specfoods[0].price}</span> <span >起</span>
+                <span >¥</span> <span>{food.specfoods[0].price}</span><span >起</span>
               </section>
               {
                 food.specifications.length > 0 ?
                 (<section className='cart-module'>
-                  <Button size='mini' onClick={() => {this.alertDialog(food.specfoods)}} color='primary'>选规格</Button>
+                  {/*这部分暂时先不写了，写不下去了*/}
+                  <MinusBtn display='none'/>
+                  <span>{orderMenus.find(menu => menu.id === currentSpecsId) && orderMenus.find(menu => menu.id === currentSpecsId).count}</span>
+                  <Button size='mini' style={{fontSize: '.52rem', padding: '0 .2174rem'}} onClick={() => {this.alertDialog(food.specfoods)}} color='primary'>选规格</Button>
                 </section>): (
                   <section className='cart-module'>
                     <MinusBtn minusMenu={() => {this.minusMenu(food)}}
