@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {Button, Tag} from "antd-mobile";
+import {Button, Dialog, Tag} from "antd-mobile";
 import {AddBtn, MinusBtn} from "../Iconfonts";
 import ACTION_TYPE from "@/redux/constant";
-import {foodItem} from "@/redux/actions/foodItem";
+import {incrementFoodItem, decrementFoodItem} from "@/redux/actions/foodItem";
 import './index.scss'
 
 class FoodItem extends Component {
 
   state = {
-    orderMenus: [] // 选中的菜品
+    currentId: [],
+    orderMenus: [], // 选中的菜品
+    currentSpanIndex: 0 //当前选中的span标签索引
   }
 
   componentDidMount(){
@@ -17,16 +19,16 @@ class FoodItem extends Component {
   }
 
   // 添加菜单
-  addMenu = food => {
-    console.log(food, this.props)
+  addMenu = (food) => {
+    // console.log(food)
     let count = 0
     const menu = this.state.orderMenus.find(menu => menu.id === food.item_id)
-    menu? this.setState({orderMenus: [{count: ++menu.count, ...menu}, ...this.state.orderMenus.filter(menu => menu.id !== food.item_id)]}, () => {
-      this.props.foodItemState(...this.state.orderMenus)
+    menu? this.setState({orderMenus: [{...menu,count: ++menu.count}, ...this.state.orderMenus.filter(menu => menu.id !== food.item_id)]}, () => {
+      this.props.incrementFoodItem(...this.state.orderMenus)
     }): this.setState({orderMenus:[{name:food.name, price: food.specfoods[0].price, id: food.item_id, count: ++count}, ...this.state.orderMenus]}, () => {
-      this.props.foodItemState(...this.state.orderMenus)
+      this.props.incrementFoodItem(...this.state.orderMenus)
     })
-
+    this.setState(state => ({currentId: [food.item_id, ...state.currentId]}))
     // if (menu){
     //   this.setState({orderMenus: [{count: ++menu.count, ...menu}, ...this.state.orderMenus.filter(menu => menu.id !== food.item_id)]}, () => {
     //     console.log(this.state.orderMenus)
@@ -41,16 +43,51 @@ class FoodItem extends Component {
     // }
   }
 
+  // 减少菜单
+  minusMenu = (food) => {
+    const menu = this.state.orderMenus.find(menu => menu.id === food.item_id)
+    this.setState(state => ({orderMenus:[{count: --menu.count, ...menu}, ...state.orderMenus.filter(menu => menu.id !== food.item_id)]}), () => {
+      this.props.decrementFoodItem(...this.state.orderMenus)
+    })
+  }
+
+  // 点击按钮弹出对话框
+  alertDialog = (specfoods) => {
+    console.log(this.state)
+    Dialog.confirm({
+      closeOnMaskClick: true,
+      title: specfoods[0].name,
+      content: (
+        specfoods.map(spec => <section key={spec.food_id} className='dialog-container'>
+          <h5>{spec.specs_name}</h5>
+          <section className='dialog-content'>
+            <span className='size'>
+              <span className='activeSpan'>{spec.specs_name}</span>
+            </span>
+          </section>
+          <span className='priceTag'>￥{spec.price}</span>
+        </section>)
+      )
+    })
+  }
+
+  clickSpan = value => {
+    return () => {
+      console.log(value)
+      this.setState({currentSpanIndex: value})
+    }
+  }
+
   render() {
-    // console.log(this.props)
+    const {currentId, orderMenus} = this.state
     const {foodItem} = this.props
-    return (
+    return(
       <section className='item-list' ref={node => this.sectionNode = node}>
         <header><strong>{foodItem.name}</strong><span>{foodItem.description}</span></header>
         {
           foodItem.foods.map(food => <section key={food.item_id} className='list-content'>
             <section className='menu_detail_link'>
-              <section className="menu_food_img"><img src={`https://elm.cangdu.org/img/${food.image_path}`} /></section>
+              <section className="menu_food_img"><img src={`https://elm.cangdu.org/img/${food.image_path}`} alt='菜单图片'/></section>
               <section className="menu_food_description">
                 <h3 className='food_description_head'>
                   <strong className='description_foodname'>{food.name}</strong>
@@ -77,10 +114,15 @@ class FoodItem extends Component {
               {
                 food.specifications.length > 0 ?
                 (<section className='cart-module'>
-                  <Button size='mini' color='primary'>选规格</Button>
+                  <Button size='mini' onClick={() => {this.alertDialog(food.specfoods)}} color='primary'>选规格</Button>
                 </section>): (
                   <section className='cart-module'>
-                    <MinusBtn display='none'/><span style={{display: 'none'}}>1</span><AddBtn addMenu={() => {this.addMenu(food)}}/>
+                    <MinusBtn minusMenu={() => {this.minusMenu(food)}}
+                              display={currentId.find(id => id === food.item_id) && orderMenus.find(menu => menu.id === food.item_id).count !== 0? '': 'none'}/>
+                    <span style={{display: currentId.find(id => id === food.item_id) && orderMenus.find(menu => menu.id === food.item_id).count !== 0? '': 'none'}}>
+                      {orderMenus.find(menu => menu.id === food.item_id) && orderMenus.find(menu => menu.id === food.item_id).count}
+                    </span>
+                    <AddBtn addMenu={() => {this.addMenu(food)}}/>
                   </section>
                 )
               }
@@ -94,6 +136,7 @@ class FoodItem extends Component {
 
 const mapStateToProps = state => state
 const mapDispatchToProps = {
-  [ACTION_TYPE.FOOD_ITEM_STATE]: foodItem
+  [ACTION_TYPE.INCREMENT_FOOD_ITEM]: incrementFoodItem,
+  [ACTION_TYPE.DECREMENT_FOOD_ITEM]: decrementFoodItem
 }
 export default connect(mapStateToProps, mapDispatchToProps)(FoodItem);

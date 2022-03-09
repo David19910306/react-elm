@@ -1,7 +1,11 @@
 import ACTIONS_TYPE from '../constant'
 
-export function foodItem(data={}){
+export function incrementFoodItem(data={}){
   return {
-    type: ACTIONS_TYPE.FOOD_ITEM_STATE, data
+    type: ACTIONS_TYPE.INCREMENT_FOOD_ITEM, data
   }
+}
+
+export function decrementFoodItem(data={}){
+  return { type: ACTIONS_TYPE.DECREMENT_FOOD_ITEM, data}
 }

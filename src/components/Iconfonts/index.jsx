@@ -272,7 +272,7 @@ export class AddBtn extends Component {
 export class MinusBtn extends Component {
   render() {
     return (
-      <i className='iconfont icon-jianshao' style={{color: '#3190e8', fontSize: '.9rem', display: this.props.display}}></i>
+      <i className='iconfont icon-jianshao' onClick={this.props.minusMenu} style={{color: '#3190e8', fontSize: '.9rem', display: this.props.display}}></i>
     );
   }
 }

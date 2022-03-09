@@ -38,7 +38,6 @@ class Shop extends Component {
     const response = await shoppingRestaurant(id)
     const result = await foodList({restaurant_id: id})
     this.setState({restaurant: response.data, foods: result.data})
-    console.log(this.props)
   }
 
   render() {
