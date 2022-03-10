@@ -95,7 +95,7 @@ export class ToRight extends Component {
   render() {
     const {color, fontSize, marginLeft} = this.props
     return (
-      <i className='iconfont icon-fangxiang-you' style={{fontSize:`${fontSize}? ${fontSize} : '1rem'`, fontWeight: 'border', color,
+      <i className='iconfont icon-fangxiang-you' style={{fontSize:fontSize, fontWeight: 'border', color,
         marginLeft: `${marginLeft}? ${marginLeft} :'0.75rem'`}}></i>
     );
   }
@@ -168,7 +168,7 @@ export class Sort extends Component {
 export class Distance extends Component {
   render() {
     return (
-      <i className='iconfont icon-position-o' style={{color: this.props.color, fontSize: this.props.fontSize}}></i>
+      <i className='iconfont icon-position-o' style={{color: this.props.color, fontSize: this.props.fontSize, fontWeight:this.props.fontWeight}}></i>
     );
   }
 }
@@ -256,7 +256,7 @@ export class OnTime extends Component {
 export class Carts extends Component {
   render() {
     return (
-      <i className='iconfont icon-gouwuche' style={{width: '100%', height: '100%', color: '#fff', fontSize: '1.5rem', lineHeight: '1.2rem'}}></i>
+      <i className='iconfont icon-gouwuche' style={{width: '100%', height: '100%', color: '#fff', fontSize: '1.5rem', lineHeight: '1.2rem', marginLeft: '-0.15rem'}}></i>
     );
   }
 }
@@ -273,6 +273,14 @@ export class MinusBtn extends Component {
   render() {
     return (
       <i className='iconfont icon-jianshao' onClick={this.props.minusMenu} style={{color: '#3190e8', fontSize: '.9rem', display: this.props.display}}></i>
+    );
+  }
+}
+
+export class ClearAll extends Component {
+  render() {
+    return (
+      <i className='iconfont icon-lajitong' style={{fontSize: '.8rem'}}></i>
     );
   }
 }

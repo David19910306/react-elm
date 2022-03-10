@@ -11,10 +11,11 @@
         z-index: 1;
       }
     .shop-backgroundImg{
-        width: 100%;
-        position: absolute;
-        filter: blur(10px);
-      }
+      width: 100%;
+      position: absolute;
+      filter: blur(10px);
+      z-index:-1;
+    }
     .shop-headerContent{
       display: flex;
       flex-direction: column;
@@ -83,7 +84,7 @@
     }
   }
   .change-showType{
-    z-index: 1;
+    //z-index: 1;
     overflow-y: auto;
     background-color:#fff;
     display:flex;
@@ -106,7 +107,7 @@
     .carts-footer{
       height: 2.1rem;
       background-color: #3d3d3f;
-      display: flex;
+      z-index: 13;
       .carts-section{
         flex: 1;
         .cart_icon_container{
@@ -121,6 +122,9 @@
           .cart_icon{
             width: 1.2rem;
             height: 1.2rem;
+          }
+          &.activeCart{
+            background-color: #3190e8
           }
         }
         .cart_num{
@@ -147,6 +151,9 @@
           color: #fff;
           font-weight: 700;
           line-height: 2.1rem;
+        }
+        &.gotopayActive{
+          background-color:#4cd964;
         }
       }
     }

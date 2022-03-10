@@ -9,3 +9,7 @@ export function incrementFoodItem(data={}){
 export function decrementFoodItem(data={}){
   return { type: ACTIONS_TYPE.DECREMENT_FOOD_ITEM, data}
 }
+
+export const updateFoodItem = data => ({type: ACTIONS_TYPE.UPDATE_FOOD_ITEM, data})
+
+export const clearCart = data => ({type: ACTIONS_TYPE.CLEAR_CART, data})

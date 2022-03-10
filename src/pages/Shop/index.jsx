@@ -1,18 +1,22 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux";
 import {JumboTabs, SideBar, Tag} from "antd-mobile";
 import qs from "qs";
-import {ToRight, ToLeft, Carts} from "../../components/Iconfonts";
-import FoodItem from "../../components/FoodItem";
-import {foodList, shoppingRestaurant} from "../../api/server.shop";
+import {ToRight, ToLeft, Carts} from "@/components/Iconfonts";
+import FoodItem from "@/components/FoodItem";
+import {foodList, shoppingRestaurant} from "@/api/server.shop";
+import CartList from "@/components/CartList";
 import './index.scss'
-import {connect} from "react-redux";
 
 class Shop extends Component {
   state = {
     restaurant: {},  // 餐馆详情
     foods: [], //食品列表
     scrollHeight: 0, // 点击右侧面板时需要移动的距离
-    allSelectMenu: []
+    allSelectMenu: [],
+    cartShow: false,
+    cartShowCount: 1, // 显示与隐藏控制
+    currentTabKey: 'goods' // 当前tab的key， 默认是商品界面
   }
 
   //回退按钮
@@ -40,8 +44,23 @@ class Shop extends Component {
     this.setState({restaurant: response.data, foods: result.data})
   }
 
+  // 显示购物车列表
+  handleCartShow = flag => {
+    this.setState({cartShow: flag, cartShowCount: this.state.cartShowCount + 1})
+  }
+
+  // 切换面板的回调
+  changeTabsHandler = key => {
+    this.setState({currentTabKey: key})
+  }
+
+  // 导航到商品结算界面
+  gotoPay = () => {
+    this.props.history.push('/confirmOrder')
+  }
+
   render() {
-    const {restaurant, foods} = this.state;
+    const {restaurant, foods, cartShow, cartShowCount, currentTabKey} = this.state;
     return Object.getOwnPropertyNames(restaurant).length === 0? '':
     (
       <div className='shop-container'>
@@ -71,7 +90,7 @@ class Shop extends Component {
           </section>
         </header>
         <section className='change-showType'>
-          <JumboTabs>
+          <JumboTabs onChange={this.changeTabsHandler}>
             <JumboTabs.Tab title='商品' key='goods'>
               <SideBar onChange={this.setActiveTab}>
                 {foods.map(food => <SideBar.Item key={food.id} title={food.name} style={{'--item-border-radius': '0'}}></SideBar.Item>)}
@@ -84,21 +103,24 @@ class Shop extends Component {
               西红柿
             </JumboTabs.Tab>
           </JumboTabs>
-          <section className='carts-footer'>
+          <section className='carts-footer' style={{display: currentTabKey === 'goods'? 'flex': 'none'}}>
             <section className='carts-section'>
-              <div className='cart_icon_container'>
+              <div className={`cart_icon_container ${this.props.foodItemState.length > 0? 'activeCart': ''}`} onClick={() => this.handleCartShow(this.props.foodItemState.length > 0 && cartShowCount % 2 !== 0)}>
                 <section className='cart_icon'><Carts/></section>
               </div>
               <div className="cart_num">
-                <div>¥ 0.00</div>
+                <div>¥ {this.props.foodItemState.reduce((prev, curr) => prev + curr.price * curr.count, 0)}</div>
                 <div>配送费¥5</div>
               </div>
             </section>
-            <section className='gotopay'>
-              <span className="gotopay_button_style">还差¥20起送</span>
+            <section className={`gotopay ${this.props.foodItemState.length > 0? 'gotopayActive': ''}`}>
+              <span className="gotopay_button_style" children={this.props.foodItemState.length > 0? '去结算':'还差¥20起送'} onClick={this.props.foodItemState.length > 0? this.gotoPay: () => {}}></span>
             </section>
           </section>
         </section>
+
+        {/* 购物车 */}
+        <CartList cartShow={cartShow}/>
       </div>
     );
   }

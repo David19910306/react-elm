@@ -4,9 +4,8 @@ import {Button, Dialog, Tag} from "antd-mobile";
 import {AddBtn, MinusBtn} from "../Iconfonts";
 import ACTION_TYPE from "@/redux/constant";
 import {incrementFoodItem, decrementFoodItem} from "@/redux/actions/foodItem";
-import './index.scss'
 import MyDialog from "../Dialog";
-import {specfoods} from "../../api/server.foods";
+import './index.scss'
 
 class FoodItem extends Component {
 
