@@ -16,7 +16,8 @@ class Shop extends Component {
     allSelectMenu: [],
     cartShow: false,
     cartShowCount: 1, // 显示与隐藏控制
-    currentTabKey: 'goods' // 当前tab的key， 默认是商品界面
+    currentTabKey: 'goods', // 当前tab的key， 默认是商品界面
+    shopId: 0 //当前点击商店的id
   }
 
   //回退按钮
@@ -41,7 +42,7 @@ class Shop extends Component {
     const {id} = qs.parse(search.slice(1))
     const response = await shoppingRestaurant(id)
     const result = await foodList({restaurant_id: id})
-    this.setState({restaurant: response.data, foods: result.data})
+    this.setState({restaurant: response.data, foods: result.data, shopId: id})
   }
 
   // 显示购物车列表
@@ -56,7 +57,7 @@ class Shop extends Component {
 
   // 导航到商品结算界面
   gotoPay = () => {
-    this.props.history.push('/confirmOrder')
+    this.props.history.push(`/confirmOrder?geohash=${this.props.home}&shopId=${this.state.shopId}`)
   }
 
   render() {
