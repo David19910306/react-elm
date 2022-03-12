@@ -2,61 +2,63 @@ import React, {Component} from 'react';
 import {Button, Form, Input, Radio, Space} from "antd-mobile";
 import Header from "@/components/Header";
 import {ToLeft} from "@/components/Iconfonts";
+import SendAddress from "./SendAddress";
+import ConnectPerson from "./ConnectPerson";
 import './index.scss'
 
-class ConnectPerson extends Component {
-  state = {
-    name: '',
-    sex: 0
-  }
-  // 输入框信息内容的变化
-  inputChange = inputValue => {
-    this.setState({name: inputValue})
-  }
-  // 单选框按钮组的变化, 性别：0代表男性，1代表女性
-  radioChange = radioValue => {
-    const sex = radioValue === 'female' ? 1 : 0
-    this.setState({sex}, () => {
-      this.state.name !== '' && this.props.getPersonMessage({name:this.state.name, sex:this.state.sex})
-    })
-  }
-  render() {
-    return (
-      <>
-        <Input placeholder='你的名字' onChange={this.inputChange} style={{borderBottom: '.025rem solid #f5f5f5', '--placeholder-color':'#999', '--font-size': '.7rem'}} />
-        <Radio.Group onChange={this.radioChange}>
-          <Space direction='horizontal' style={{marginTop: '.5rem'}}>
-            <Radio value='male' style={{marginRight: '.5rem'}}>先生</Radio>
-            <Radio value='female'>女士</Radio>
-          </Space>
-        </Radio.Group>
-      </>
-    )
-  }
-}
+// class ConnectPerson extends Component {
+//   state = {
+//     name: '',
+//     sex: 0
+//   }
+//   // 输入框信息内容的变化
+//   inputChange = inputValue => {
+//     this.setState({name: inputValue})
+//   }
+//   // 单选框按钮组的变化, 性别：0代表男性，1代表女性
+//   radioChange = radioValue => {
+//     const sex = radioValue === 'female' ? 1 : 0
+//     this.setState({sex}, () => {
+//       this.state.name !== '' && this.props.getPersonMessage({name:this.state.name, sex:this.state.sex})
+//     })
+//   }
+//   render() {
+//     return (
+//       <>
+//         <Input placeholder='你的名字' onChange={this.inputChange} style={{borderBottom: '.025rem solid #f5f5f5', '--placeholder-color':'#999', '--font-size': '.7rem'}} />
+//         <Radio.Group onChange={this.radioChange}>
+//           <Space direction='horizontal' style={{marginTop: '.5rem'}}>
+//             <Radio value='male' style={{marginRight: '.5rem'}}>先生</Radio>
+//             <Radio value='female'>女士</Radio>
+//           </Space>
+//         </Radio.Group>
+//       </>
+//     )
+//   }
+// }
 
-class SendAddress extends Component {
-  state = {main:'', sub: ''}
-  // 主要地址信息
-  mainAddress = address => {
-    this.setState( {main:address})
-  }
-  // 详细门牌号地址
-  subAddress = subAddress => {
-    this.setState({sub:subAddress}, () => {
-      this.state.main !== '' && this.props.getAddress(this.state.main + this.state.sub)
-    })
-  }
-   render(){
-     return (
-       <>
-         <Input placeholder='小区/写字楼/学校等' style={{'--placeholder-color':'#999'}} onChange={this.mainAddress} />
-         <section style={{backgroundColor: '#f5f5f5', height: '.025rem', width: '100%', margin: '.2rem 0'}}></section>
-         <Input placeholder='详细地址（如门牌号）' style={{'--placeholder-color':'#999'}} onChange={this.subAddress}/>
-       </>
-     )
-   }
-}
+// class SendAddress extends Component {
+//   state = {main:'', sub: ''}
+//   // 主要地址信息
+//   mainAddress = address => {
+//     this.setState( {main:address})
+//   }
+//   // 详细门牌号地址
+//   subAddress = subAddress => {
+//     this.setState({sub:subAddress}, () => {
+//       this.state.main !== '' && this.props.getAddress(this.state.main + this.state.sub)
+//     })
+//   }
+//    render(){
+//      return (
+//        <>
+//          <Input placeholder='小区/写字楼/学校等' style={{'--placeholder-color':'#999'}} onChange={this.mainAddress} />
+//          <section style={{backgroundColor: '#f5f5f5', height: '.025rem', width: '100%', margin: '.2rem 0'}}></section>
+//          <Input placeholder='详细地址（如门牌号）' style={{'--placeholder-color':'#999'}} onChange={this.subAddress}/>
+//        </>
+//      )
+//    }
+// }
 
 class AddAddress extends Component {
   formRef = React.createRef()
@@ -73,10 +75,12 @@ class AddAddress extends Component {
 
   // 父组件获取子组件FormItem的值
   getPersonMessage = (person) => {
+    console.log(person)
     this.formRef.current?.setFieldsValue({person})
   }
   // 父组件获取子组件FormItem的值
   getAddress = address => {
+    console.log(address)
     this.formRef.current?.setFieldsValue({address})
   }
 

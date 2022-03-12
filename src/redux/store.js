@@ -13,10 +13,12 @@ const allReducers = combineReducers({
   foodItemState: foodItemReducer
 })
 
+// 在persistConfig中增加blacklist或whitelist属性来设置哪些reducer需要被缓存，哪些不需要被缓存，其中属性值为一个数组，即whitelist:['reducerName'],表示only持久化reducerName，黑名单表示不会持久化reducerName
 const persistConfig = {
   key: 'root',
   storage,
-  stateReconciler: autoMergeLevel2
+  stateReconciler: autoMergeLevel2,
+  blacklist: ['foodItemReducer'] // 表示选中的购物车中的数据不会被持久化
 }
 const myPersistReducer = persistReducer(persistConfig, allReducers)
 
