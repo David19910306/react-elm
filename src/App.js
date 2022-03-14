@@ -19,5 +19,5 @@ function App() {
     </div>
   );
 }
-// 同步提交测试，我是今天同步提交测试
+
 export default App;
