@@ -7,3 +7,10 @@ export function addAddress(data) {
     data
   })
 }
+
+export function getAddressList(params){
+  return request({
+    url: `/api/v1/users/${params.user_id}/addresses`,
+    method: 'GET'
+  })
+}
