@@ -5,6 +5,7 @@
   background-color: #fff;
   ul{
     flex: 1;
+    overflow-y: auto;
     li{
       display: flex;
       align-items: center;

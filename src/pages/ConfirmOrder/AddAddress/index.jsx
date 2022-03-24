@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
-import {Button, Form, Input, Radio, Space} from "antd-mobile";
+import {connect} from "react-redux";
+import {Button, Form, Input, Modal, Toast} from "antd-mobile";
 import Header from "@/components/Header";
 import {ToLeft} from "@/components/Iconfonts";
 import SendAddress from "./SendAddress";
 import ConnectPerson from "./ConnectPerson";
 import './index.scss'
+import {ExclamationCircleFill} from "antd-mobile-icons";
+import {addAddress} from "../../../api/server.address";
 
 // class ConnectPerson extends Component {
 //   state = {
@@ -69,18 +72,57 @@ class AddAddress extends Component {
 
   // 表单提交按钮事件submit, class组建中获取form表单的实例，可以通过ref获取
   onSubmit = () => {
+    // 先判断表单是否合格
     const form = this.formRef.current?.getFieldsValue()
-    console.log(form)
+    Object.keys(form).every(key => form[key] !== undefined)?
+      this.props.userInfo.user_id? // 首先判断用户是否登录
+        this.addPersonLocation(form):
+        Modal.alert({
+          header: <ExclamationCircleFill style={{fontSize: 64, color: 'var(--adm-color-warning)'}} />,
+          title: '警告',
+          content: (<>
+            <div style={{textAlign: 'center'}}>用户尚未登录，请先登录后在操作</div>
+          </>)
+        })
+        :Modal.alert({
+          header: <ExclamationCircleFill style={{fontSize: 64, color: 'var(--adm-color-warning)'}} />,
+          title: '警告',
+          content: (<>
+            <div style={{textAlign: 'center'}}>请完善信息</div>
+          </>)
+        })
+  }
+
+  // 增加收货地址
+  addPersonLocation = async form => {
+    const {user_id} = this.props.userInfo
+    const {address, person, phone, tag} = form
+    const result = await addAddress({
+      user_id,
+      address: address.mainAddress,
+      address_detail:address.subAddress,
+      geohash:this.props.home,
+      name:person.name,
+      phone,
+      tag,
+      sex: person.sex === 'male'? 1: 2,
+      poi_type: 0,
+      phone_bk: '12345678901',
+      tag_type: tag === '家'? 2:tag==='学校'? 3: tag==='公司'? 4: 2
+    })
+    if(result.status === 200 && result.data.status === 1){
+      Toast.show({icon: 'success', content: '地址添加成功'})
+      // 调回上一个界面
+      this.props.history.go(-1)
+    }
   }
 
   // 父组件获取子组件FormItem的值
   getPersonMessage = (person) => {
-    // console.log(person)
     this.formRef.current?.setFieldsValue({person})
   }
   // 父组件获取子组件FormItem的值
   getAddress = address => {
-    // console.log(address)
     this.formRef.current?.setFieldsValue({address})
   }
 
@@ -108,4 +150,6 @@ class AddAddress extends Component {
   }
 }
 
-export default AddAddress;
+const mapStateToProps = state => state
+const mapDispatchToProps = {}
+export default connect(mapStateToProps, mapDispatchToProps)(AddAddress);
