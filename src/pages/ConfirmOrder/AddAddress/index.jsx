@@ -75,12 +75,12 @@ class AddAddress extends Component {
 
   // 父组件获取子组件FormItem的值
   getPersonMessage = (person) => {
-    console.log(person)
+    // console.log(person)
     this.formRef.current?.setFieldsValue({person})
   }
   // 父组件获取子组件FormItem的值
   getAddress = address => {
-    console.log(address)
+    // console.log(address)
     this.formRef.current?.setFieldsValue({address})
   }
 
