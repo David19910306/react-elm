@@ -284,3 +284,9 @@ export class ClearAll extends Component {
     );
   }
 }
+
+export class WeixinPay extends Component{
+  render() {
+    return <i className='iconfont icon-weixinzhifu' style={{fontSize: this.props.fontSize, color: this.props.color}}></i>
+  }
+}

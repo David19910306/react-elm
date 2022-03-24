@@ -6,7 +6,7 @@ import {ToLeft} from "@/components/Iconfonts";
 import SendAddress from "./SendAddress";
 import ConnectPerson from "./ConnectPerson";
 import './index.scss'
-import {ExclamationCircleFill} from "antd-mobile-icons";
+import {ExclamationCircleFill, UserOutline} from "antd-mobile-icons";
 import {addAddress} from "../../../api/server.address";
 
 // class ConnectPerson extends Component {
@@ -129,7 +129,7 @@ class AddAddress extends Component {
   render() {
     return (
       <div className='add-address'>
-        <Header props={this.props} render={() => <ToLeft/>} location='添加地址' tips='登录|注册' />
+        <Header props={this.props} render={() => <ToLeft/>} location='添加地址' tips={Object.keys(this.props.userInfo).length === 0? '登录|注册': <UserOutline fontSize={24} style={{marginRight: '.3rem'}} />} />
         <Form layout='horizontal' ref={this.formRef}
               footer={<Button block type='submit' on color='primary' onClick={this.onSubmit} size='large'>确定</Button>} onFinish={this.onFinish} onFinishFailed={this.onFinishFailed}>
           <Form.Item label='联系人' name='person'>

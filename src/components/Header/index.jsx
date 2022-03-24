@@ -4,7 +4,7 @@ import './index.scss'
 
 class Header extends Component {
   state = {props: {}}
-  //登录界面跳转
+  //登录和登出界面的跳转界面跳转，后续增加登出界面跳转逻辑
   clickHandler = () => {
     const  {props} = this.props
     this.setState({props})

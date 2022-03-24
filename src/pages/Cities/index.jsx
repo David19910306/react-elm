@@ -5,6 +5,8 @@ import {ToRight} from "@/components/Iconfonts";
 import {getCitiesHot, getCitiesGroup, getLocationCity} from "@/api/server.city";
 import {Link} from "react-router-dom";
 import cities from './index.module.css'
+import {UserOutline} from "antd-mobile-icons";
+import {connect} from "react-redux";
 
 class Cities extends Component {
   state = {location: {}, hot: [], groups: {}}
@@ -25,7 +27,7 @@ class Cities extends Component {
     const {location, hot, groups} = this.state
     return (
       <div style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
-        <Header render={() => <HeaderSearch value={'ele.me'}/>} location={''} tips={'登录|注册'} props={this.props}/>
+        <Header render={() => <HeaderSearch value={'ele.me'}/>} location={''} tips={Object.keys(this.props.userInfo).length === 0? '登录|注册': <UserOutline fontSize={24} style={{marginRight: '.3rem'}} />} props={this.props}/>
         <div style={{overflow:'auto', flex:'1'}}>
           <div className={cities.location}>
             <div className={cities.cityTip}>
@@ -67,4 +69,5 @@ class Cities extends Component {
   }
 }
 
-export default Cities;
+const mapStateToProps = state => state
+export default connect(mapStateToProps, {})(Cities);
