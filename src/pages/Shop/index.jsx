@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {JumboTabs, SideBar, Tag} from "antd-mobile";
+import {JumboTabs, Rate, SideBar, Tag} from "antd-mobile";
 import qs from "qs";
 import {ToRight, ToLeft, Carts} from "@/components/Iconfonts";
 import FoodItem from "@/components/FoodItem";
@@ -96,12 +96,50 @@ class Shop extends Component {
               <SideBar onChange={this.setActiveTab}>
                 {foods.map(food => <SideBar.Item key={food.id} title={food.name} style={{'--item-border-radius': '0'}}></SideBar.Item>)}
               </SideBar>
-              <div className='sidebar-item-content' ref={node => this.sideBarNode = node}>
+              <div className='sidebar-item-content'>
                 {foods.map(food => <FoodItem key={food.id} foodItem={food} getItemNode={this.getItemNode}></FoodItem>)}
               </div>
             </JumboTabs.Tab>
             <JumboTabs.Tab title='评价' key='assess'>
-              西红柿
+              <section style={{height: '100%'}}>
+                <header className='whole-comments'>
+                  <section className='rating_header_left'>
+                    <p>4.7</p>
+                    <p>综合评价</p>
+                    <p>高于周边商店76.9%</p>
+                  </section>
+                  <section className='rating_header_right'>
+                    <p>
+                      <span>服务态度</span>
+                      <Rate readonly value={4.7} style={{'--star-size': '12px', marginRight: '.2rem'}}/>
+                      <span className='rating-number'>4.7</span>
+                    </p>
+                    <p>
+                      <span>菜品评价</span>
+                      <Rate readonly value={4.8} style={{'--star-size': '12px', marginRight: '.2rem'}}/>
+                      <span className='rating-number'>4.8</span>
+                    </p>
+                    <p>
+                      <span>送达时间</span>
+                      <span className='delivery_time'>分钟</span>
+                    </p>
+                  </section>
+                </header>
+                <ul className='comment-detail'>
+                  <li className='tagActivity'>全部(473)</li>
+                  <li>满意(453)</li>
+                  <li className='unsatisfied'>不满意(20)</li>
+                  <li>有图(2)</li>
+                  <li>味道好(47)</li>
+                  <li>送货快(32)</li>
+                  <li>分量足(18)</li>
+                  <li>包装精美(15)</li>
+                  <li>干净卫生(15)</li>
+                  <li>食物新鲜(15)</li>
+                  <li>服务不错(11)</li>
+                </ul>
+                <ul className='rating_list_ul'></ul>
+              </section>
             </JumboTabs.Tab>
           </JumboTabs>
           <section className='carts-footer' style={{display: currentTabKey === 'goods'? 'flex': 'none'}}>

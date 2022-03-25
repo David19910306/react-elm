@@ -8,7 +8,7 @@ class Header extends Component {
   clickHandler = () => {
     const  {props} = this.props
     this.setState({props})
-    props.history.push('/login')
+    Object.keys(this.props.userInfo).length === 0? props.history.push('/login'): props.history.push('/home/mine')
   }
   //回退到上一级菜单
   goBack = event => {

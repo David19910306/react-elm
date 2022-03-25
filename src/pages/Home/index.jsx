@@ -8,6 +8,7 @@ import {HeaderSearch} from "@/components/Iconfonts";
 import {getAccuratePosition} from "@/api/server.home";
 import {Route} from "react-router-dom";
 import {UserOutline} from "antd-mobile-icons";
+import {ToLeft} from "../../components/Iconfonts";
 
 class Home extends Component {
   state = {name: '',geohash:''}
@@ -28,7 +29,7 @@ class Home extends Component {
     return (
       <div className={homeStyle.homePage}>
         <Header props={this.props}
-                render={() => <HeaderSearch/>}
+                render={pathname.includes('/msite')||pathname.includes('/search')? () => <HeaderSearch/>: () => <ToLeft/> }
                 location={pathname.includes('/msite')? name: pathname.includes('/search')? '搜索': pathname.includes('/list')? '订单': pathname.includes('/mine')?'我的':''}
                 tips={pathname.includes('/mine')? '': Object.keys(this.props.userInfo).length === 0? '登录|注册': <UserOutline fontSize={24} style={{marginRight: '.3rem'}} />}/>
         <Route exact path='/home/msite' component={Msite}/>
