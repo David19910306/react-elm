@@ -7,6 +7,7 @@ import FoodItem from "@/components/FoodItem";
 import {foodList, shoppingRestaurant} from "@/api/server.shop";
 import CartList from "@/components/CartList";
 import './index.scss'
+import {comments, scores, tags} from "../../api/server.shop";
 
 class Shop extends Component {
   state = {
@@ -17,7 +18,11 @@ class Shop extends Component {
     cartShow: false,
     cartShowCount: 1, // 显示与隐藏控制
     currentTabKey: 'goods', // 当前tab的key， 默认是商品界面
-    shopId: 0 //当前点击商店的id
+    shopId: 0, //当前点击商店的id
+    score: {}, //餐厅的综合评分
+    tag: [], //餐厅评价标签
+    tagId: '',
+    comment: [] // 餐厅评价
   }
 
   //回退按钮
@@ -42,7 +47,10 @@ class Shop extends Component {
     const {id} = qs.parse(search.slice(1))
     const response = await shoppingRestaurant(id)
     const result = await foodList({restaurant_id: id})
-    this.setState({restaurant: response.data, foods: result.data, shopId: id})
+    const score = await scores({id})
+    const tag = await tags({id})
+    const comment = await comments({restaurant_id: id, tag_name: '', offset: 0, limit: 10})
+    this.setState({restaurant: response.data, foods: result.data, shopId: id, score: score.data, tag: tag.data, comment: comment.data})
   }
 
   // 显示购物车列表
@@ -60,8 +68,18 @@ class Shop extends Component {
     this.props.history.push(`/confirmOrder?geohash=${this.props.home}&shopId=${this.state.shopId}`)
   }
 
+  // 四舍五入保留一位小数
+  round = (number, precision) => {
+    return Math.round(+number + 'e' + precision) / Math.pow(10, precision)
+  }
+
+  // 标签的点击
+  tagClick = tagId => {
+    this.setState({tagId})
+  }
+
   render() {
-    const {restaurant, foods, cartShow, cartShowCount, currentTabKey} = this.state;
+    const {restaurant, foods, cartShow, cartShowCount, currentTabKey, score, tag, tagId, comment} = this.state;
     return Object.getOwnPropertyNames(restaurant).length === 0? '':
     (
       <div className='shop-container'>
@@ -104,20 +122,20 @@ class Shop extends Component {
               <section style={{height: '100%'}}>
                 <header className='whole-comments'>
                   <section className='rating_header_left'>
-                    <p>4.7</p>
+                    <p>{this.round(score.overall_score, 1)}</p>
                     <p>综合评价</p>
-                    <p>高于周边商店76.9%</p>
+                    <p>高于周边商店{this.round(score.compare_rating * 100, 1)}%</p>
                   </section>
                   <section className='rating_header_right'>
                     <p>
                       <span>服务态度</span>
-                      <Rate readonly value={4.7} style={{'--star-size': '12px', marginRight: '.2rem'}}/>
-                      <span className='rating-number'>4.7</span>
+                      <Rate readonly value={this.round(score.service_score, 1)} style={{'--star-size': '12px', marginRight: '.2rem'}}/>
+                      <span className='rating-number'>{this.round(score.service_score, 1)}</span>
                     </p>
                     <p>
                       <span>菜品评价</span>
-                      <Rate readonly value={4.8} style={{'--star-size': '12px', marginRight: '.2rem'}}/>
-                      <span className='rating-number'>4.8</span>
+                      <Rate readonly value={this.round(score.food_score, 1)} style={{'--star-size': '12px', marginRight: '.2rem'}}/>
+                      <span className='rating-number'>{this.round(score.food_score, 1)}</span>
                     </p>
                     <p>
                       <span>送达时间</span>
@@ -126,19 +144,39 @@ class Shop extends Component {
                   </section>
                 </header>
                 <ul className='comment-detail'>
-                  <li className='tagActivity'>全部(473)</li>
-                  <li>满意(453)</li>
-                  <li className='unsatisfied'>不满意(20)</li>
-                  <li>有图(2)</li>
-                  <li>味道好(47)</li>
-                  <li>送货快(32)</li>
-                  <li>分量足(18)</li>
-                  <li>包装精美(15)</li>
-                  <li>干净卫生(15)</li>
-                  <li>食物新鲜(15)</li>
-                  <li>服务不错(11)</li>
+                  {
+                    tag.map(t => <li key={t._id} className={`${t.name === '不满意'? 'unsatisfied': ''} ${t._id === tagId? 'tagActivity': ''}`} onClick={() => {this.tagClick(t._id)}}>{t.name}({t.count})</li>)
+                  }
                 </ul>
-                <ul className='rating_list_ul'></ul>
+                <ul className='rating_list_ul'>
+                  {
+                    comment.map(comm => <li key={comm._id} className='rating_list_li'>
+                      <img className="user_avatar" alt='用户头像' src={comm.avatar === ""? `https://elm.cangdu.org/img/default.jpg`: `https://fuss10.elemecdn.com/${comm.avatar.substring(0, 1)}/${comm.avatar.substring(1, 3)}/${comm.avatar.substring(3)}.jpeg`} />
+                      <section className='rating_list_details'>
+                        <header>
+                          <section className='user_star'>
+                            <p className='username'>{comm.username}</p>
+                            <p className='star_desc'>
+                              <Rate readonly value={5} style={{'--star-size': '12px'}}/>
+                              <span className='time_spent_desc'>{comm.time_spent_desc}</span>
+                            </p>
+                          </section>
+                          <time className='rated_at'>{comm.rated_at}</time>
+                        </header>
+                        <ul className="food_img_ul">
+                          {
+                            comm.item_ratings.map(item => item.image_hash !== "" && <li key={item._id}><img src={`https://fuss10.elemecdn.com/${item.image_hash.substring(0, 1)}/${item.image_hash.substring(1, 3)}/${item.image_hash.substring(3)}.jpeg`} /></li>)
+                          }
+                        </ul>
+                        <ul className="food_name_ul">
+                          {
+                            comm.item_ratings.map(item => <li key={item.food_id} className="ellipsis">{item.food_name}</li>)
+                          }
+                        </ul>
+                      </section>
+                    </li>)
+                  }
+                </ul>
               </section>
             </JumboTabs.Tab>
           </JumboTabs>
