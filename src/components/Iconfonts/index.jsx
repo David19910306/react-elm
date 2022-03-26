@@ -96,7 +96,7 @@ export class ToRight extends Component {
     const {color, fontSize, marginLeft} = this.props
     return (
       <i className='iconfont icon-fangxiang-you' style={{fontSize:fontSize, fontWeight: 'border', color,
-        marginLeft: `${marginLeft}? ${marginLeft} :'0.75rem'`}}></i>
+        marginLeft: `${marginLeft}? ${marginLeft} :'0.75rem'`, verticalAlign: 'middle'}}></i>
     );
   }
 }
