@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {InfiniteScroll, JumboTabs, Rate, SideBar, Tag} from "antd-mobile";
+import {InfiniteScroll, JumboTabs, Mask, Rate, SideBar, Tag} from "antd-mobile";
 import qs from "qs";
 import {Route} from "react-router-dom";
 import {ShopDetail} from "@/router";
@@ -24,7 +24,8 @@ class Shop extends Component {
     score: {}, //餐厅的综合评分
     tag: [], //餐厅评价标签
     tagId: '',
-    comment: [] // 餐厅评价
+    comment: [], // 餐厅评价
+    maskVisible: false //遮罩层的显示和隐藏控制
   }
 
   //回退按钮
@@ -92,6 +93,11 @@ class Shop extends Component {
     this.props.history.push({pathname: '/shop/shopDetail', state: {restaurant}})
   }
 
+  // 控制遮罩层的显示和影藏
+  setVisible = visible => {
+    this.setState({maskVisible: visible})
+  }
+
   render() {
     const {restaurant, foods, cartShow, cartShowCount, currentTabKey, score, tag, tagId, comment} = this.state;
     return Object.getOwnPropertyNames(restaurant).length === 0? '':
@@ -117,10 +123,29 @@ class Shop extends Component {
                   <ToRight color='#fff'/>
                 </section>
               </section>
-              <section className='activity-content' style={{display: `${restaurant.activities.length === 0? 'none' : ''}`}}>
+              <section className='activity-content' style={{display: `${restaurant.activities.length === 0? 'none' : ''}`}} onClick={() => this.setVisible(true)}>
                 <span><Tag color='danger'>{restaurant.activities.length !== 0 && restaurant.activities[0].icon_name}</Tag> {restaurant.activities.length !== 0 && restaurant.activities[0].description}</span>
                 <span>{restaurant.activities.length} 个活动 <ToRight/></span>
               </section>
+              <Mask visible={this.state.maskVisible} onMaskClick={() => this.setVisible(false)} opacity={0.9}>
+                <div className='mask-content'>
+                  <h2>{restaurant.name}</h2>
+                  <ul>
+                    <li>
+                      <Tag fill='outline' color='#fff' style={{'--border-radius': '10px', padding: '5px 8px'}}>优惠信息</Tag>
+                      {
+                        restaurant.activities.map(activity => <section key={activity._id} className='activities'>
+                          <p><Tag color={`#${activity.icon_color}`}>{activity.icon_name}</Tag> <span>{activity.description}(APP专享)</span></p>
+                        </section>)
+                      }
+                    </li>
+                    <li>
+                      <Tag fill='outline' color='#fff' style={{'--border-radius': '10px', padding: '5px 8px'}}>商家公告</Tag>
+                      <p>{restaurant.promotion_info}</p>
+                    </li>
+                  </ul>
+                </div>
+              </Mask>
             </section>
           </header>
           <section className='change-showType'>
