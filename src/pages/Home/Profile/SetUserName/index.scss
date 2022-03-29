@@ -1,0 +1,19 @@
+.set-username{
+  height: 100%;
+  margin: .5rem auto;
+  input{
+    width: 15.2rem;
+    display: block;
+    padding: .3rem;
+    font-size: .7rem;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    background: none;
+  }
+  section p{
+    width: 100%;
+    font-size: .4rem;
+    color: #666;
+    padding: 0.4rem 0 1rem;
+  }
+}

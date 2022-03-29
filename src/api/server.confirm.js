@@ -7,3 +7,11 @@ export function checkOut(data){
     data
   })
 }
+
+export function confirmOrder(data){
+  return request({
+    url: `/api/v1/users/${data.user_id}/carts/${data.cart_id}/orders`,
+    method: 'POST',
+    data
+  })
+}

@@ -19,9 +19,9 @@ class Profile extends Component {
     return (
       <div className='profile_page'>
         <section className='profile-number'>
-          <Link className='profile-link' to='/login'>
+          <Link className='profile-link' to={userInfo.user_id? '/home/mine/info' :'/login'}>
             <span className='privateImage'>
-              <Avatar src='' className='privateImage-svg'></Avatar>
+              <Avatar src={userInfo.username? 'https://elm.cangdu.org/img/default.jpg': ''} className='privateImage-svg'></Avatar>
             </span>
             <div className='userInfo'>
               <p>{userInfo.username? userInfo.username: '登录 / 注册'}</p>
@@ -50,13 +50,15 @@ class Profile extends Component {
         </section>
         <section className='profile-1reTe'>
           <ul className='my-order'>
-            <li>
-              <MyList/>
-              <div className='list-menu'>
-                <span>我的订单</span>
-                <ToRight color='#bbb'/>
-              </div>
-            </li>
+            <Link to='/home/list'>
+              <li>
+                <MyList/>
+                <div className='list-menu'>
+                  <span>我的订单</span>
+                  <ToRight color='#bbb'/>
+                </div>
+              </li>
+            </Link>
             <li>
               <MyStore/>
               <div className='list-menu'>

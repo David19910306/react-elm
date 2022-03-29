@@ -25,8 +25,9 @@ class TabBarComponent extends Component {
     this.props.history.push(value)
   }
   render() {
-    const {location, home} = this.props
+    const {location, home, tabbarShow} = this.props
     return (
+      tabbarShow? <></>:
       <div className='tabBar'>
         <TabBar onChange={value => value.endsWith('/search')?
           this.tabChange(`${value}/${home}`): value.endsWith('/msite')?

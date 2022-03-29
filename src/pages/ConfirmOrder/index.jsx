@@ -8,7 +8,7 @@ import {CheckCircleFill, UserOutline} from "antd-mobile-icons";
 import Header from "@/components/Header";
 import {ToLeft} from "@/components/Iconfonts";
 import {Distance, ToRight} from "@/components/Iconfonts";
-import {checkOut} from "@/api/server.confirm";
+import {checkOut, confirmOrder} from "@/api/server.confirm";
 import {Address, Payment} from "@/router";
 import './index.scss'
 
@@ -54,8 +54,15 @@ class ConfirmOrder extends Component {
   }
 
   // 跳转到下单界面
-  payments = () => {
-    this.props.history.push('/confirmOrder/payment')
+  payments = async () => {
+    // 开始下单
+    const {userInfo:{user_id}, address:{id}} = this.props
+    const {cart: {restaurant_id, groups}, cart} = this.state.checkout
+    const geohash = this.props.home
+
+    // 请求开始下单的接口
+    const result = await confirmOrder({user_id, cart_id:cart.id, address_id: id, restaurant_id, geohash, description: '', entities:groups.map(group => group)})
+    result.data.status === 1 && this.props.history.push('/confirmOrder/payment')
   }
 
   render() {
