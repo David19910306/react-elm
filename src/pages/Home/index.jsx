@@ -9,9 +9,10 @@ import {getAccuratePosition} from "@/api/server.home";
 import {Route} from "react-router-dom";
 import {UserOutline} from "antd-mobile-icons";
 import {AddMyAddress} from "../../router";
+import PubSub from "pubsub-js";
 
 class Home extends Component {
-  state = {name: '',geohash:''}
+  state = {name: '',geohash:'', tipsChange: false} //tipsChange用于对地址编辑栏的'编辑'和'完成'两种状态切换
   async componentDidMount(){
     const {pathname} = this.props.location
     this.setState(state => ({pathname,geohash:this.props.home}), async () => {
@@ -22,9 +23,20 @@ class Home extends Component {
          console.log(error.message)
       }
     })
+
+    this.token = PubSub.subscribe('delAddress', (_, data) => {
+      // console.log('Home', data)
+      this.setState({tipsChange: data})
+    })
   }
+
+  componentWillUnmount() {
+    // 取消订阅
+    PubSub.unsubscribe(this.token)
+  }
+
   render() {
-    const {name} = this.state
+    const {name, tipsChange} = this.state
     const {location: {pathname}} = this.props
     // console.log(pathname)
     return (
@@ -35,7 +47,7 @@ class Home extends Component {
                   '搜索': pathname.includes('/list')? '订单': pathname.endsWith('/mine')?
                   '我的':pathname.endsWith('/mine/info')? '账户信息': pathname.endsWith('/setusername')?
                   '修改用户名': pathname.endsWith('/info/address')? '收货地址':pathname.endsWith('/info/address/add')? '新增地址': ''}
-                tips={ pathname.endsWith('/info/address')? '地址编辑':pathname.includes('/mine')? '':
+                tips={ pathname.endsWith('/info/address')? tipsChange? '完成': '地址编辑':pathname.includes('/mine')? '':
                   Object.keys(this.props.userInfo).length === 0? '登录|注册': <UserOutline fontSize={24} style={{marginRight: '.3rem'}} />}/>
         <Route exact path='/home/msite' component={Msite}/>
         <Route exact path={`/home/search/:geohash`} component={Search}/>

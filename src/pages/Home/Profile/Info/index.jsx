@@ -8,7 +8,8 @@ import {Link} from "react-router-dom";
 
 class Info extends Component {
   render() {
-    const {userInfo} = this.props
+    console.log(this.props)
+    const {userInfo, location: {state}} = this.props
     return (
       <div className='info-container'>
         <section className='userInfo'>
@@ -24,7 +25,7 @@ class Info extends Component {
               <li>
                 <span>用户名</span>
                 <div className='avatar'>
-                  <p>{userInfo.username}</p>
+                  <p>{state? state.username: userInfo.username}</p>
                   <ToRight color='#D8D8D8' fontSize='1.1rem' />
                 </div>
               </li>
