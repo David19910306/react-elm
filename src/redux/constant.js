@@ -6,7 +6,8 @@ const ACTIONS_TYPE = {
   DECREMENT_FOOD_ITEM: 'decrementFoodItem',
   UPDATE_FOOD_ITEM: 'updateFoodItem',
   CLEAR_CART: 'clearCart',
-  SEND_ADDRESS: 'sendAddress'
+  SEND_ADDRESS: 'sendAddress',
+  CLEAR_USERINFO: 'clearUserInfo'
 }
 
 export default ACTIONS_TYPE

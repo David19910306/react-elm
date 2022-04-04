@@ -39,3 +39,20 @@ export function addAddress(data){
     data
   })
 }
+
+// 修改密码
+export function resetPassword(data){
+  return request({
+    url: '/api/v2/changepassword',
+    method: 'POST',
+    data
+  })
+}
+
+// 退出登录
+export function singout(){
+  return request({
+    url: '/api/v2/signout',
+    method: 'GET'
+  })
+}

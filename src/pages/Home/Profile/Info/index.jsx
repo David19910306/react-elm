@@ -1,14 +1,41 @@
 import React, {Component} from 'react';
-import {PhoneFill} from "antd-mobile-icons";
-import {Button} from "antd-mobile";
+import {Link} from "react-router-dom";
+import {ExclamationCircleFill, PhoneFill} from "antd-mobile-icons";
+import {Button, Dialog} from "antd-mobile";
 import {connect} from "react-redux";
 import {ToRight} from "@/components/Iconfonts";
+import {singout} from "@/api/server.login";
+import {clearUserInfo} from "@/redux/actions/login";
+import ACTIONS_TYPE from "@/redux/constant";
 import './index.scss'
-import {Link} from "react-router-dom";
 
 class Info extends Component {
+
+  // 退出登录
+  logOut = async () => {
+    const result = await Dialog.confirm({
+      header: (<ExclamationCircleFill
+        style={{
+          fontSize: 64,
+          color: 'var(--adm-color-warning)',
+        }}
+      />),
+      title: '注意',
+      content: '是否确认退出登录？'
+    })
+    if (result){
+      // 退出登录
+      const logout = await singout()
+      if (logout.data.status === 1){
+        // 设置userInfo为空{}
+        this.props.clearUserInfo({}) // 传一个空对象
+        this.props.history.push('/home/mine')
+      }
+    }
+  }
+
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     const {userInfo, location: {state}} = this.props
     return (
       <div className='info-container'>
@@ -54,20 +81,25 @@ class Info extends Component {
         <p className='account-binding'>安全设置</p>
         <section className='userInfo'>
           <ul>
-            <li>
-              <span>登录密码</span>
-              <div className='avatar'>
-                <p>修改</p>
-                <ToRight color='#D8D8D8' fontSize='1.1rem' />
-              </div>
-            </li>
+            <Link to='/forget'>
+              <li>
+                <span>登录密码</span>
+                <div className='avatar'>
+                  <p>修改</p>
+                  <ToRight color='#D8D8D8' fontSize='1.1rem' />
+                </div>
+              </li>
+            </Link>
           </ul>
         </section>
-        <Button block style={{margin:'1.2rem auto', '--background-color': '#d8584a', '--text-color': '#fff', width: '93%'}}>退出登录</Button>
+        <Button block style={{margin:'1.2rem auto', '--background-color': '#d8584a', '--text-color': '#fff', width: '93%'}} onClick={this.logOut}>退出登录</Button>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => state
-export default connect(mapStateToProps, {})(Info);
+const mapDispatchToProps = {
+  [ACTIONS_TYPE.CLEAR_USERINFO]: clearUserInfo
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Info);

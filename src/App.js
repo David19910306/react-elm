@@ -1,7 +1,7 @@
 import './App.css';
 import Cities from "./pages/Cities";
 import {Redirect, Route, Switch} from "react-router-dom";
-import {City, Home, Login, Food, Shop, ConfirmOrder} from "./router";
+import {City, Home, Login, Food, Shop, ConfirmOrder, Forget} from "./router";
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
         <Route path='/login' component={Login}/>
         <Route path='/shop' component={Shop}/>
         <Route path='/confirmOrder' component={ConfirmOrder}/>
+        <Route path='/forget' component={Forget} />
         <Redirect to='/index'/>
       </Switch>
     </div>
