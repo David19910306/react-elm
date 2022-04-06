@@ -1,4 +1,4 @@
-const {override, addWebpackAlias, addLessLoader} = require("customize-cra");
+const {override, addWebpackAlias, addLessLoader, fixBabelImports} = require("customize-cra");
 const path = require("path");
 
 module.exports = override(
@@ -11,6 +11,12 @@ module.exports = override(
   }),
   addWebpackAlias({
     '@': path.resolve(__dirname, 'src')
+  }),
+  fixBabelImports('import',{
+    libraryName: '@alex_xu/react-loading',
+    libraryDirectory: 'es',
+    camel2DashComponentName: false,
+    style: true,
   }),
   config => config
 )

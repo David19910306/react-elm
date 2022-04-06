@@ -9,10 +9,11 @@ import {Provider} from "react-redux";
 import store from '../src/redux/store';
 import {DevSupport} from "@react-buddy/ide-toolbox";
 import {ComponentPreviews, useInitial} from "./dev";
+import Loading from "./Loading";
 
 ReactDOM.render(
   <BrowserRouter>
-    <Suspense fallback={<h4>loading...</h4>}>
+    <Suspense fallback={<Loading/>}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistStore(store)}>
           <DevSupport

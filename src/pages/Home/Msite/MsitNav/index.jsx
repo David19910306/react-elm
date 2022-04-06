@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import msitNavStyle from './index.module.css'
 import {Swiper} from "antd-mobile";
+import {Skeleton} from "@mui/material";
 import {getNavigationList} from "@/api/server.home";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
@@ -21,7 +22,6 @@ class MsitNav extends Component {
 
   render() {
     const { mistList } = this.state
-    if (mistList.length === 0) return null
     return (
       <div className={msitNavStyle.msitNav}>
         <Swiper loop>
@@ -36,11 +36,16 @@ class MsitNav extends Component {
 class SwiperItem extends Component{
   render() {
     const {mistList, geohash} = this.props
-    // console.log(this.props)
+    console.log(this.props)
     return (
       <div className={msitNavStyle.swiperItem}>
         {
-          mistList.map(item => (
+          mistList.length === 0?
+            [1,2,3,4,5,6,7,8].map(item => <div key={item} className={msitNavStyle.swiperItemChild}>
+              <Skeleton width={77.66} height={54.05}></Skeleton>
+              <Skeleton width={77.66} height={18.5}></Skeleton>
+            </div>)
+            : mistList.map(item => (
             <div className={msitNavStyle.swiperItemChild} key={item.id}>
               <Link to={`/food?geohash=${geohash}&title=${item.title}&restaurant_category_id=239`} style={{textDecoration: 'none'}}>
                 <div style={{flex: '1.5'}}><img alt='展示图片' src={`https://fuss10.elemecdn.com/${item.image_url}`}/></div>
