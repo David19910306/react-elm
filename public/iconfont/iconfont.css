@@ -1,7 +1,7 @@
 @font-face {
     font-family:"iconfont";
     /* Project id 3192724 */
-    src: url('//at.alicdn.com/t/font_3192724_4dgl04so9nr.woff2?t=1645295211144') format('woff2'), url('//at.alicdn.com/t/font_3192724_4dgl04so9nr.woff?t=1645295211144') format('woff'), url('//at.alicdn.com/t/font_3192724_4dgl04so9nr.ttf?t=1645295211144') format('truetype');
+    src: url('//at.alicdn.com/t/font_3192724_jwzxg0mewa8.woff2?t=1648117832779') format('woff2'), url('//at.alicdn.com/t/font_3192724_jwzxg0mewa8.woff?t=1648117832779') format('woff'), url('//at.alicdn.com/t/font_3192724_jwzxg0mewa8.ttf?t=1648117832779') format('truetype');
 }
 .iconfont {
     font-family:"iconfont" !important;
@@ -9,6 +9,84 @@
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+.icon-weixinzhifu:before {
+    content:"\e60a";
+}
+.icon-xin:before {
+    content:"\e945";
+}
+.icon-fengniaopaotui:before {
+    content:"\e6c0";
+}
+.icon-lajitong:before {
+    content:"\e615";
+}
+.icon-jianshao:before {
+    content:"\e8b1";
+}
+.icon-jia:before {
+    content:"\e609";
+}
+.icon-gouwuche:before {
+    content:"\e61d";
+}
+.icon-pin2:before {
+    content:"\e605";
+}
+.icon-tianmaohuopiaotongxing:before {
+    content:"\e606";
+}
+.icon-servicebaoshuicang:before {
+    content:"\e607";
+}
+.icon-zhunshida:before {
+    content:"\e613";
+}
+.icon-zhifuzhongxin:before {
+    content:"\e692";
+}
+.icon-duigou:before {
+    content:"\e65d";
+}
+.icon-jiage:before {
+    content:"\e604";
+}
+.icon-position-o:before {
+    content:"\e61a";
+}
+.icon-shijian-xianxing:before {
+    content:"\e8c4";
+}
+.icon-paixu:before {
+    content:"\e636";
+}
+.icon-pingfen1:before {
+    content:"\e61c";
+}
+.icon-redu:before {
+    content:"\e6ac";
+}
+.icon-fuwuzhongxin1:before {
+    content:"\e603";
+}
+.icon-wodehuiyuan0101:before {
+    content:"\e61b";
+}
+.icon-dingdan1:before {
+    content:"\e652";
+}
+.icon-shangcheng:before {
+    content:"\e7a8";
+}
+.icon-phone-iphone:before {
+    content:"\eb81";
+}
+.icon-fangxiang-zuo:before {
+    content:"\e661";
+}
+.icon-fangxiang-you:before {
+    content:"\e660";
 }
 .icon-pingjiaxingxing:before {
     content:"\e662";

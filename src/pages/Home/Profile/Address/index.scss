@@ -1,0 +1,35 @@
+.edit-address{
+  height: 100%;
+  margin-top: 0.4rem;
+  border-top: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
+  overflow-y: auto;
+  .addressList{
+    background: #fff;
+    li:first-child{
+      background-color: #fff8c3;
+    }
+    li{
+      border-bottom: 1px solid #d9d9d9;
+      padding: 0.4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  .addsite{
+    margin-top: 0.4rem;
+    background: #fff;
+    padding: 0.2rem 0.4rem;
+    border-top: 1px solid #d9d9d9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    span{
+      display: block;
+      font-size: .7rem;
+      color: #333;
+      line-height: 1.4rem;
+    }
+  }
+}

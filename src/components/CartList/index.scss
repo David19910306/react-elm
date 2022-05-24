@@ -1,0 +1,63 @@
+.cart-list{
+  position: fixed;
+  width: 100%;
+  margin-bottom: 2.1rem;
+  z-index: 12;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  animation: .2s fadeUpIn normal;
+  header{
+    height: 2rem;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3rem 0.6rem;
+    background-color: #eceff1;
+    span{
+      font-size: .7rem;
+      color: #666;
+    }
+  }
+  .cartFood{
+    background-color:#fff;
+    max-height: 20rem;
+    overflow-y: auto;
+    ul li{
+      display: flex;
+      justify-content: space-between;
+      padding: 0.6rem 0.5rem;
+      .cart_list_num{
+        width: 55%;
+        .ellipsis{
+          font-size: .7rem;
+          color: #666;
+          font-weight: 700;
+        }
+      }
+      .cart_list_price{
+        font-size: 0;
+        span{
+          color: #ff6000;
+          font-size: .6rem;
+          font-family: Helvetica Neue,Tahoma;
+        }
+      }
+      .cart_list_control{
+        display:flex;
+        align-items:center;
+        span{
+          margin: 0 .2rem;
+        }
+      }
+    }
+  }
+}
+@keyframes fadeUpIn {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}

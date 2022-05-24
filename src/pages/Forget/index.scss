@@ -1,0 +1,16 @@
+.forget-password{
+  height: 100%;
+  .reset-password{
+    margin-top: .4rem;
+    background-color: #fff;
+    .identificateCode{
+      display: flex;
+      .tips{
+        margin-left: .2rem;
+        h6:last-child{
+          color: #3b95e9;
+        }
+      }
+    }
+  }
+}

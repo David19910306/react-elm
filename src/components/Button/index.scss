@@ -1,0 +1,12 @@
+.props button{
+  padding: .2rem .78rem;
+  font-size: .6rem;
+  margin-right: .3rem;
+  margin-bottom: .5rem;
+  color: #333;
+  border: 1px dashed #999;
+}
+.activeButton{
+  color: #3b95e9 !important;
+  border: 1px dashed #3b95e9 !important;
+}

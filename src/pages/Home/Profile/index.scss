@@ -1,0 +1,122 @@
+.profile_page{
+  height: 100%;
+  background-color: #f1f1f1;
+  .profile-number{
+    .profile-link{
+      display: flex;
+      box-align: center;
+      align-items: center;
+      background: #3190e8;
+      padding: 0.666667rem 0.6rem;
+      .privateImage{
+        display: inline-block;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        vertical-align: middle;
+        .privateImage-svg{
+          background: #fff;
+          border-radius: 50%;
+          width: 2.5rem;
+          height: 2.5rem;
+        }
+      }
+      .userInfo{
+        margin-left: 0.48rem;
+        flex-grow: 1;
+        p{
+          font-weight: 700;
+          font-size: .8rem;
+          color: #fff;
+          .icon-mobile-number{
+            display: inline-block;
+            font-size: .57333rem;
+            color: #fff;
+            margin-left: .2rem;
+          }
+        }
+      }
+      .arrow{
+        width: 0.46667rem;
+        height: 0.98rem;
+        display: inline-block;
+      }
+    }
+  }
+  .info-data{
+    width: 100%;
+    background: #fff;
+    box-sizing: border-box;
+    .clear{
+      zoom: 1;
+      .info-data-link{
+        float: left;
+        width: 33.33%;
+        display: inline-block;
+        border-right: 1px solid #f1f1f1;
+        .info-data-top{
+          font-size: .55rem;
+          color: #333;
+          padding: 0.853333rem 0 0.453333rem;
+          b{
+            display: inline-block;
+            font-size: 1.2rem;
+            color: #f90;
+            font-weight: 700;
+            line-height: 1rem;
+            font-family: Helvetica Neue,Tahoma;
+          }
+        }
+        .info-data-bottom{
+          font-size: .57333rem;
+          color: #666;
+          font-weight: 400;
+          padding-bottom: 0.453333rem;
+        }
+        span{
+          display: block;
+          width: 100%;
+          text-align: center;
+        }
+      }
+      .info-data-link:nth-of-type(3){
+        .info-data-top{
+          b{
+            color: #6ac20b
+          }
+        }
+      }
+      .info-data-link:nth-of-type(2){
+        .info-data-top{
+          b{
+            color: #ff5f3e
+          }
+        }
+      }
+    }
+  }
+  .profile-1reTe{
+    margin-top: .3rem;
+    background-color: #fff;
+    ul{
+      padding: 0 .5rem;
+      li{
+        display: flex;
+        height: 1.87rem;
+        align-content: center;
+        padding-left: .2rem;
+        .list-menu{
+          flex: 1;
+          width: 100%;
+          border-bottom: 1px solid #f1f1f1;
+          padding: 0.433333rem 0.266667rem 0.433333rem 0;
+          font-size: .7rem;
+          color: #333;
+          display: flex;
+          justify-content: space-between;
+          margin-left: .5rem;
+        }
+      }
+    }
+  }
+}
