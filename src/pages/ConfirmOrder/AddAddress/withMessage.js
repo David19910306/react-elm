@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 
 export default function withMessage(WrappedComponent){
-  return class WithMessage extends Component{
+  return class extends Component{
     state = {msg1: '', msg2: ''}
 
     // 主要地址信息，和姓名

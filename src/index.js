@@ -10,6 +10,7 @@ import store from '../src/redux/store';
 import {DevSupport} from "@react-buddy/ide-toolbox";
 import {ComponentPreviews, useInitial} from "./dev";
 import Loading from "./Loading";
+import ErrorBoundary from './Errorboundary';
 
 ReactDOM.render(
   <BrowserRouter>
@@ -20,7 +21,10 @@ ReactDOM.render(
             ComponentPreviews={ComponentPreviews}
             useInitialHook={useInitial}
           >
-            <App/>
+            {/* ErrorBoundary 错误边界组件, 一定是一个类组件 */}
+            <ErrorBoundary errorComponent={<h1>oh, something wrong, please check your network</h1>}>
+              <App/>
+            </ErrorBoundary>
           </DevSupport>
         </PersistGate>
       </Provider>
